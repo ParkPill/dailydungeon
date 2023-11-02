@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain=",,,0"/>
+  <tile id="5" terrain=",,0,0"/>
+  <tile id="6" terrain=",,0,"/>
+  <tile id="12" terrain="0,0,0,"/>
+  <tile id="13" terrain="0,0,,"/>
+  <tile id="14" terrain="0,0,,0"/>
+  <tile id="36" terrain=",0,,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,,0,"/>
+  <tile id="44" terrain="0,,0,"/>
+  <tile id="46" terrain=",0,,0"/>
+  <tile id="68" terrain=",0,,"/>
+  <tile id="69" terrain="0,0,,"/>
+  <tile id="70" terrain="0,,,"/>
+  <tile id="76" terrain="0,,0,0"/>
+  <tile id="77" terrain=",,0,0"/>
+  <tile id="78" terrain=",0,0,0"/>
+ </tileset>
+ <layer name="back" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJy1VVsSgzAI9Df2JCYnUS+ZozadaRyKyyuxH4w4kg3sAuZlWbLfavfPZqnZ2uwF/BTDhfgUl8YlFotw6P3b91mAv4HzUfwi4Bg13vD3Zse3du7vD+BTXOVspWdRrKfWFeRQfu8Q8SXdpV4B2o3mdfEUxQ/oP9ovV15WjQAf1oJ6yugRiNO/eWbewu8Y2sxOcKjlP4ShzSz1DdyajZn4mMKviaHtauo7ORDzcuiiYgR2yz9n7jGMk71HZ+54AINxDPnv2iQWT3vDW/8K7inBflDibvGDOwHmwLmWuAHnazZm2NoJUX083Hj51nSf1UfjZmaGA7q79PFw03XkMdr8Bf4F7hwkbrx73uPP6qNxE/m/W/7sftTw3wqYsI0=
+  </data>
+ </layer>
+ <layer name="stage" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzVl0sOwjAMRJ0s2AF3yKI7xB16/0OBRC0sa2zH/dAwktVfkr5ak5E6EdH0J3V9123QugvOB42rJ9mcbakR1MP5C9amjlqIsxY8V66x5RtaUFLMku3nXD4l2Wv5Hvlc3kdreT1Aiji1ovei8ahPiNNj3cKJeKRk39FYPSfLyZ6Yiz1P99LqR8a/a/3pcR4l9r/WXrm0V35Zvcn605O3X9Bz5NMMZxVjvWyzWNG1zjbkb8TZ40/EwP6ROepltbe/rIxAijijXvbkiseptZbzSGU8FfnzbCF/Xgavs/8jMvUCeEQu9A==
+  </data>
+ </layer>
+ <layer name="deco" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowA3MB5oB9AYDHf/4QMj2e8g0Eei+pEeXiBAbhgYDQI3UKp3FIyCwQaIzVe0SPfGNDIXF6BmGTIKRgExAABR3AMj
+  </data>
+ </layer>
+ <layer name="unit" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIwH0DrD9EXS0ywSLWCQd7R8FtAdBRKhBTwfY0sUoGN7AjEL9YVRxBfVADJXMicIhTkk5GUqBXmraNRLyOTHl30CBkRD+o2BkAAAQaAUs
+  </data>
+ </layer>
+ <layer name="fore" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5T/CMhh2Ep1XQhAvzHQAAAGoLiqIAjg==
+  </data>
+ </layer>
+</map>

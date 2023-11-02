@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="42" height="20" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+   <terrain name="empty" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain="1,1,1,0"/>
+  <tile id="5" terrain="1,1,0,0"/>
+  <tile id="6" terrain="1,1,0,1"/>
+  <tile id="12" terrain="0,0,0,1"/>
+  <tile id="13" terrain="0,0,1,1"/>
+  <tile id="14" terrain="0,0,1,0"/>
+  <tile id="36" terrain="1,0,1,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,1,0,1"/>
+  <tile id="44" terrain="0,1,0,1"/>
+  <tile id="45" terrain="1,1,1,1"/>
+  <tile id="46" terrain="1,0,1,0"/>
+  <tile id="68" terrain="1,0,1,1"/>
+  <tile id="69" terrain="0,0,1,1"/>
+  <tile id="70" terrain="0,1,1,1"/>
+  <tile id="76" terrain="0,1,0,0"/>
+  <tile id="77" terrain="1,1,0,0"/>
+  <tile id="78" terrain="1,0,0,0"/>
+ </tileset>
+ <layer name="back" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJytVlEWgzAI87fbSVZP4rwkR51vs3sUgYbiR5+Kmo4kxK3LsryOVQfr8TsSr61n/XmsIs7LeT+DzXGzWFYdwVTWH2fP4VywrPqmvFuUniR2YdcN530DllU3nvH6vuzJdc9iWfWBXsTWt6ZxBuoOYXl11D+KnkPdo1hOnQBeXf6k7hksp05iztTZ8jjjmFksUJcpT/F9rXnic5/N2FlPcd0TOTriS9Ur4il+PZP5sxkb9VRg3mc4VH8/6IlOBy/nAa4kLlUgY0FPdDokv+/mvkq/iCdMHUDdO66Qvu7OBf5fEeEKzdiMFu19zjWfdZSrGc9Ec0FiN833AFeeT4JeJ3F0+2y6azkaOQf1pgrkgrfXBxhvsSA=
+  </data>
+ </layer>
+ <layer name="stage" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUBsimBeI+QYp5kdypy7D4AX6DKPupCbA5k4mxoFzDzqAuWUoh+dgBEPZnaPpk3ww6k7qgtH0SV0w6k7qgqGYPtkGOR7ofgQpGADk1hrJ
+  </data>
+ </layer>
+ <layer name="deco" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5P9CMjJHQKmgC8M+0AwDASQuRVACP
+  </data>
+ </layer>
+ <layer name="unit" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzgEJAAAIA7D3Bzsb44hbgiV8MO0AAAAcsDtSAI4=
+  </data>
+ </layer>
+ <layer name="fore" width="42" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5T/CMhh2Ep1XQhAvzHQAAAGoLiqIAjg==
+  </data>
+ </layer>
+</map>

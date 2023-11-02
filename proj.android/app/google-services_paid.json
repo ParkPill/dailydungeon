@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "637129492946",
+    "firebase_url": "https://dailydungeon-cd459.firebaseio.com",
+    "project_id": "dailydungeon-cd459",
+    "storage_bucket": "dailydungeon-cd459.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637129492946:android:373de5511a80a0f331e00b",
+        "android_client_info": {
+          "package_name": "kr.co.morongames.dailydungeon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637129492946-8rbv67de65cm48gsjk1n7venrscg2gd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3bhKYkMCHFBGQZBWqJkxkKx4i0it6Lto"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637129492946-8rbv67de65cm48gsjk1n7venrscg2gd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

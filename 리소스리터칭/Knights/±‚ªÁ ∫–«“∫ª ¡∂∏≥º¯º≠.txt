@@ -1,0 +1,11 @@
+분할본 레이어를 겹치는 우선순위입니다.
+
+1. knightLeftHand,knightRightHand >
+2. knightSword >
+3. knightLeftLowerArm, knightRightLowerArm > 4. knightLeftArmCover, knightRightArmCover > 5. knightRightLegCover, knightLeftLegCover > 6. knightLeftUpperArm, knightRightUpperArm > 7. knightPenisCover >
+8. knightEyes >
+9. knightHead >
+10. knightTopSpine >
+11. knightLowerSpine >
+12. knightLeftFoot,knightRightFoot >
+13. knightRightLowerLeg, knightLeftLowerLeg > 14. knightRightUpperLeg, knightLeftUpperLeg

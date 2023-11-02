@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="42" height="42" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain=",,,0"/>
+  <tile id="5" terrain=",,0,0"/>
+  <tile id="6" terrain=",,0,"/>
+  <tile id="12" terrain="0,0,0,"/>
+  <tile id="13" terrain="0,0,,"/>
+  <tile id="14" terrain="0,0,,0"/>
+  <tile id="36" terrain=",0,,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,,0,"/>
+  <tile id="44" terrain="0,,0,"/>
+  <tile id="46" terrain=",0,,0"/>
+  <tile id="68" terrain=",0,,"/>
+  <tile id="69" terrain="0,0,,"/>
+  <tile id="70" terrain="0,,,"/>
+  <tile id="76" terrain="0,,0,0"/>
+  <tile id="77" terrain=",,0,0"/>
+  <tile id="78" terrain=",0,0,0"/>
+ </tileset>
+ <layer id="1" name="back" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHtmcsJgDAQRHNdrSRaSbT/fpyAggW8gRzmMLCnYdm3H4nVWtukXSowJr1mfl06pBOOad+h/C7plsiY9Jr5lTTrGu5Mb9F8vv6hfcOd3SM0n3Bn+Zzacf0VeT/Cnb0fkxHJJ9xZPrv4lER/M7i4073kmvdLNf12PhE7GDk8wz3cV+6Bobkk5tHtU4ad7PDsypPeyQ7PEe7om4CDkcMz3Nm3IAcjh2e4h/vKPVC57+ib/8qs/7mFO/uv51/bleMHdwAhWg==
+  </data>
+ </layer>
+ <layer id="2" name="stage" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHtl8FOwzAQRMMBOLX9B6SGE+InKJxo//9vmIk60tS4cpCXNJXW0sbrxN59nt1LxmEYxjuxDTi3K7WdafgGf63jHWCqd3L2Vyn17NfQI6Serka/n3r2a+gRUk9Xo99PPfs19Aipp6vR76ee/Rp6hNTT1ej3U89+DT3CrfR8cQj45br4PNyKs+RordfI+QjoJ9izwS/N2aov0cTk/+l6x394f29XWdzdI2PJs0ZOMbluelfyR4hY67M5ccUUwUmG49nY8/TZ9/Rlnk/vxK61Zp3H8V/9yZ5WrBG+83M/h/e9cjDmCcYzkfaKeBx7WMnT4pwOnh++N5JPsaI4dU/FjZ5VzwN0+YR9mUiukfbxs9db2/+bU3oqn8/XOH2PfN5zC9vBorVkvChOhJoGeSNZN4jH+3udp0T2mKNnrQciWMlX9mEtF3HncNq1Lty/spKJZziXfBeBK4trnB8PiAlrDeZlzZRXDJz1rVXTWo4yv3N+48BxYSPjnJwn7BvvyH4AdktbZQ==
+  </data>
+ </layer>
+ <layer id="3" name="deco" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt1UEKwCAMRFHtlXr/VS8m3c0iogwIRn9BKBrb5DXSUrgQQAABBBBAAAEEEEAAAQQQQAABBEYC7yggWH9qMJlsyqk7WYnp0/37LBorCuv1tPaJxmheK/LZ4ZnfBud8JoeZGMdTv7ez/7Y9elZOqd3pAbcfnXed4nxbHfr/6N1nM2kekQQl
+  </data>
+ </layer>
+ <layer id="4" name="unit" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt0jEKgDAMQNE6iOdxEg8gzg7i/VdPYQp2ySKBYIL+LtoQk/TVUlgIIIAAAggggAACCCCAAAIIIICATeCQ9M32CdkImAS++I95nsmzluliSH5NoN6x5zo7z2r2WrV/9Axt6qm9/OCZxTyKeoxqfPedg/vr9rsOJNz3MtOQcC490iKBVQcf9hfBXwgy
+  </data>
+ </layer>
+ <layer id="5" name="fore" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt0EEKgCAQBVC7esf1FBHtXMgnSlFeO+kzf+aV4iOwp8C551nDrkr8ksywhV8U/b3/Pb/X0fuXnvPFjLYrmZlk2rnej0Bql+a4EiBAgAABAgQIECBAgMBcgXrM7U/bV9kzvUeOAAECqwlcgh0H7w==
+  </data>
+ </layer>
+</map>

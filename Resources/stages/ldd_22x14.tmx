@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="22" height="14" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+   <terrain name="empty" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain="1,1,1,0"/>
+  <tile id="5" terrain="1,1,0,0"/>
+  <tile id="6" terrain="1,1,0,1"/>
+  <tile id="12" terrain="0,0,0,1"/>
+  <tile id="13" terrain="0,0,1,1"/>
+  <tile id="14" terrain="0,0,1,0"/>
+  <tile id="36" terrain="1,0,1,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,1,0,1"/>
+  <tile id="44" terrain="0,1,0,1"/>
+  <tile id="45" terrain="1,1,1,1"/>
+  <tile id="46" terrain="1,0,1,0"/>
+  <tile id="68" terrain="1,0,1,1"/>
+  <tile id="69" terrain="0,0,1,1"/>
+  <tile id="70" terrain="0,1,1,1"/>
+  <tile id="76" terrain="0,1,0,0"/>
+  <tile id="77" terrain="1,1,0,0"/>
+  <tile id="78" terrain="1,0,0,0"/>
+ </tileset>
+ <layer name="back" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJylk1EOwCAIQ/3VnWR6ko1LetT9aEKQNpB9kBA766POXkrpuObuxWjV6Gyvp1V+LvLyPJmGvKb+/o1pGc6wpnO4c2fBGsTrcdZkrXuzMu1a/C3Q7z3NyWIY5myPchbFzzLR5fFtXz2HnStZ8J9FnJn3xu7xL59iieYwe+BN2bmD93XwfSfCRIQ=
+  </data>
+ </layer>
+ <layer name="stage" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUKMR5gViPiphVSRzdRmoB4aDuUyM5JsH0zscwoFW5o708GWjIkY2lxYYAKIbDx4=
+  </data>
+ </layer>
+ <layer name="deco" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgZoHegHUAAGA20A+gIjAdIL63ASIq7wQ4AAfABWA==
+  </data>
+ </layer>
+ <layer name="unit" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBi5oHegHTAKRsEooCoAACCyAI4=
+  </data>
+ </layer>
+ <layer name="fore" width="22" height="14">
+  <data encoding="base64" compression="zlib">
+   eJxjYBiaoHegHTAKRsEoGHQAAEYmAI4=
+  </data>
+ </layer>
+</map>

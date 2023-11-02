@@ -1,0 +1,169 @@
+{
+    "android": {
+        "GoogleAnalytics": {
+            "trackingCode": "UA-57024566-22"
+        }, 
+        "Facebook": {
+            "debug": false
+        }, 
+        "iap": {
+            "items": {
+                "middlecoinpack": {
+                    "id": "com.magmon.braverascal.middlecoinpack"
+                }, 
+                "bigstarterpack": {
+                    "id": "com.magmon.braverascal.bigstarterpack"
+                }, 
+                "susan": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.susan"
+                }, 
+                "middlstarterpack": {
+                    "id": "com.magmon.braverascal.middlstarterpack"
+                }, 
+                "gabriel": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.gabriel"
+                }, 
+                "fullweaponspack": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.fullweaponspack"
+                }, 
+                "infinitelives": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.infinitelives"
+                }, 
+                "bigcoinpack": {
+                    "id": "com.magmon.braverascal.bigcoinpack"
+                }, 
+                "middleexppack": {
+                    "id": "com.magmon.braverascal.middleexppack"
+                }, 
+                "smallstarterpack": {
+                    "id": "com.magmon.braverascal.smallstarterpack"
+                }, 
+                "smallexppack": {
+                    "id": "com.magmon.braverascal.smallexppack"
+                }, 
+                "bigexppack": {
+                    "id": "com.magmon.braverascal.bigexppack"
+                }, 
+                "ninja": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.ninja"
+                }, 
+                "paul": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.paul"
+                }, 
+                "john": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.john"
+                }, 
+                "smallcoinpack": {
+                    "id": "com.magmon.braverascal.smallcoinpack"
+                }, 
+                "bree": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.bree"
+                }, 
+                "fullcharacterspack": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.fullcharacterspack"
+                },
+                "removeads": {
+                    "type": "non_consumable",
+                    "id": "com.magmon.braverascal.removeads"
+                },
+                "doubleexp": {
+                    "type": "non_consumable",
+                    "id": "com.magmon.braverascal.doubleexp"
+                }
+            }, 
+            "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuNV1f28ZEJbmXtKMyl+mnVcQU0OZv5lvMXwK20BSqpj6Orv5bq4QTGWp/LJScgAMWTbZPKvMXyX0+5n6EfE7MD1VFoU1Rm0VVfNjEiSXICcJS/Y5x0sbvhbjjM/58KNPYQ+/jmuvmN8tKMQUFYHYA88NgD4ZUSsGM1MIEWm9FDvl+1n7u7bw1E7X+q8ROPL96uaGVKiSi3RXEOTvwQJDAekT2LA8Ng4I7BKP4XqBBXDnhY1dtPbe0PnQXtbQk6gjFshKdPv0iYwlC4ykdFZScKQYA2H87MtZh+KFDmVjh5l0lAgFX8tkZm8rszdhDeI1h09+YV5/P5bKz0VmU5CpoQIDAQAB"
+        }
+    }, 
+    "ios": {
+        "GoogleAnalytics": {
+            "trackingCode": "UA-57024566-21"
+        }, 
+        "Facebook": {
+            "debug": true
+        }, 
+        "iap": {
+            "items": {
+                "middlecoinpack": {
+                    "id": "com.magmon.braverascal.middlecoinpack"
+                }, 
+                "bigstarterpack": {
+                    "id": "com.magmon.braverascal.bigstarterpack"
+                }, 
+                "susan": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.susan"
+                }, 
+                "middlstarterpack": {
+                    "id": "com.magmon.braverascal.middlstarterpack"
+                }, 
+                "gabriel": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.gabriel"
+                }, 
+                "fullweaponspack": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.fullweaponspack"
+                }, 
+                "infinitelives": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.infinitelives"
+                }, 
+                "bigcoinpack": {
+                    "id": "com.magmon.braverascal.bigcoinpack"
+                }, 
+                "middleexppack": {
+                    "id": "com.magmon.braverascal.middleexppack"
+                }, 
+                "smallstarterpack": {
+                    "id": "com.magmon.braverascal.smallstarterpack"
+                }, 
+                "smallexppack": {
+                    "id": "com.magmon.braverascal.smallexppack"
+                }, 
+                "bigexppack": {
+                    "id": "com.magmon.braverascal.bigexppack"
+                }, 
+                "ninja": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.ninja"
+                }, 
+                "paul": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.paul"
+                }, 
+                "john": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.john"
+                }, 
+                "smallcoinpack": {
+                    "id": "com.magmon.braverascal.smallcoinpack"
+                }, 
+                "bree": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.bree"
+                }, 
+                "fullcharacterspack": {
+                    "type": "non_consumable", 
+                    "id": "com.magmon.braverascal.fullcharacterspack"
+                },
+                "removeads": {
+                    "type": "non_consumable",
+                    "id": "com.magmon.braverascal.removeads"
+                },
+                "doubleexp": {
+                    "type": "non_consumable",
+                    "id": "com.magmon.braverascal.doubleexp"
+                }
+            }
+        }
+    }
+}
