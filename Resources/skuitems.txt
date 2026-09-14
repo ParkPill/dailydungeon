@@ -1,0 +1,17 @@
+starter_pack_small;0
+starter_pack_middle;1
+starter_pack_big;2
+legenddary_two_tiny_coins;3
+legenddary_two_middle_coins;4
+legenddary_two_big_coins;5
+legenddary_two_heros;6
+legenddary_two_weapons;7
+event_character_gabriel;8
+event_character_john;9
+event_character_ninja;10
+event_character_paul;11
+event_character_bree;12
+event_character_susan;13
+ld2_exp_small;14
+ld2_exp_middle;15
+ld2_exp_big;16

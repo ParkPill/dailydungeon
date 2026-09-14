@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "HudLayer::adjustHandPos(cocos2d::Vec2):HudLayer.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "HelloWorld::removeEnemy(EnemyBase*):HelloWorldScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "spt-&gt;unitType">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HelloWorld::npcUpdate(float):HelloWorldScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "player-&gt;encounteredNpc-&gt;getPositionX()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MobileTitle::updateTitle(float):MobileTitle.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "ServerManager::getInstance()-&gt;requestedID">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::showMenu():HudLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "GM-&gt;tutorialIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DualWorld::fire(Weapon*, float):DualWorld.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "weapon-&gt;getScaleX()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::updateUI(float):HudLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "GameManager::getInstance()-&gt;tutorialType">
+            </PersistentString>
+            <PersistentString
+               value = "GameManager::getInstance()-&gt;localTicketRefillTimeLeft">
+            </PersistentString>
+            <PersistentString
+               value = "dialogBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HelloWorld::autoTargeting():HelloWorldScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "player-&gt;velocity">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::showTutorialDialog():HudLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "dialogBox">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::onBattleClick():HudLayer.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "GameManager::getInstance()-&gt;tutorialIndex">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "std::__1::__wrap_iter&lt;Droppable* const*&gt; std::__1::find&lt;std::__1::__wrap_iter&lt;Droppable* const*&gt;, Droppable*&gt;(std::__1::__wrap_iter&lt;Droppable* const*&gt;, std::__1::__wrap_iter&lt;Droppable* const*&gt;, Droppable* const&amp;):algorithm">
+         <PersistentStrings>
+            <PersistentString
+               value = "missile-&gt;victimArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::onReceivePostItemClick(cocos2d::Ref*):HudLayer.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "DualWorld::setDualMap():DualWorld.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "GameManager::getInstance()-&gt;dualEnemyChar">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DualWorld::showResult():DualWorld.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "GameManager::getInstance()-&gt;localPlayIndex">
+            </PersistentString>
+            <PersistentString
+               value = "GM-&gt;dualEnemyTrophy">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HudLayer::showDailyDungeonResult():HudLayer.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Droppable::findTarget(Droppable*, float):Droppable.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "this-&gt;unitType">
+            </PersistentString>
+            <PersistentString
+               value = "this-&gt;isVisible">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "HelloWorld::takeAction():HelloWorldScene.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "player-&gt;encounteredNpc-&gt;getPosition().x">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DualWorld::updateGame(float):DualWorld.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "player-&gt;energy">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.0" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="42" height="42" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024" columns="32">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain=",,,0"/>
+  <tile id="5" terrain=",,0,0"/>
+  <tile id="6" terrain=",,0,"/>
+  <tile id="12" terrain="0,0,0,"/>
+  <tile id="13" terrain="0,0,,"/>
+  <tile id="14" terrain="0,0,,0"/>
+  <tile id="36" terrain=",0,,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,,0,"/>
+  <tile id="44" terrain="0,,0,"/>
+  <tile id="46" terrain=",0,,0"/>
+  <tile id="68" terrain=",0,,"/>
+  <tile id="69" terrain="0,0,,"/>
+  <tile id="70" terrain="0,,,"/>
+  <tile id="76" terrain="0,,0,0"/>
+  <tile id="77" terrain=",,0,0"/>
+  <tile id="78" terrain=",0,0,0"/>
+ </tileset>
+ <layer id="1" name="back" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHtmTEKxDAMBN3q8ovrfHmJc///z63hAiFtZsHFFgtKswiNLBulWmsvaZMKjEmvmV+XPtIOx09937echr4P6SuRMek18ytp1jXcmd6i+Zz9Q/uGOztHaD7hzvLZNeP6X+T9Ee7s/TEZkXzCneWziU9J9JvBxZ3uJdd5P1TTc+YTsYORwzPcw33lHhg6l8R5dPuUYSY7PLvypGeyw3OEO7oTcDByeIY7uwtyMHJ4hnu4r9wDlfsd3fmvzPqaW7iz/3qutV05/gGkcSFS
+  </data>
+ </layer>
+ <layer id="2" name="stage" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHdmEtu20AQRJUAplYyT0FpJeQSEbWSef/bpCrgEwqdGVr+AHEyQGN+3dWve6gE8HG32x3/ETuI8/mL2hg9PGv9VccPgfHe/zvn928fe4Unhb/IBtm+I/W3+2nGRfbam34Wp/O5Hzb3ptcXXe3SNxnN2vv2XuNMzV7u2hPnu8la/i3fg3xHmeNOMg/78S14znpatUzycXwvdytvy5+85DPbLHuWXWX0y/VVLvSYK2eLwTqDzL3Ke+d1Thu9sS7+8PnMvmbLMWkDB7P9ZlnVPGeg1hnrmJo/c/NelrgU35q3Mjrmhyz9zJZ+ed/jNKNjtvKnplz/8EXDd61hbbO5f1XL/o9wnuy4jsq6lT99aw/Qe3TucT5JYJH5LWoO53fdvdp1dR/oV427Q2Ph3C+yfdyhkzzJuNWvkOkuJ91YO9+kOtf/z4jJ2ipnMiZ71X50T84tzqrViqmcuX9vL7M/5LwJZljNb1rfNWNgyNo4c++stci87jG6386X34623QGnNaslBwLWh8E85ElOdHqM1sK/lcP3dVx0wL83nm2jzLnOsjpqXeQhL4yeuasaWWv65JvZZ5Dta/C6T43kJG6RX7LgUzkf6eWWz7TmyToSmXypkexm9N246pzXYOKogfP1+j6lVo/Bzui1fFIj81AbjNeGDrrpc4eLRWrddD7I9nHPEj375H0yHnRnFsZFi3k1ztGhHvbm5Ix45sxhP6yy2N85x9Xn5IN1TJq34vBjhgsN9j3OZHQf8vfqmBYrmuRIjWQdFL8HrMzURe/QTM78/XJvxuuqddE8y0aZ48z6IiMvMeQgpzUyjtgWa9Vg7xh0tfw9sg/1zg7mhdXxNvfQ5+47dZEDjRp3ky+s9GjSGXpa3n+fLU58D/Ijp2NywDTrMNnSBx3XwCCOOqmB+xpDrXBSj/3xrRpoPTqbyXW0aoW33tWYypm5q2/etdZPOhxk/lZte9lnjS3OmgOOZGHteZEdw+o7EP8e/h5nvj+86Zs8rXXrm57WGm6aW6ytnK3ctX58mC9azDL/XjzbRlnlrIzkzzpPinvLyNgeJ3mqrt9xkcFpPrNfZa3hOqmrclprWM3fttfMXmceOHtccr+PFmOP7x6kBX25aZ0syXHU3ZbBmbq9NfnQezR22mA46M7fVH5XrMeI6+Vq9Tff0Kw3md+p2qCzvYzhuHk1M6RtvUf2pcdJjjpXVnpbZ77FVr1Vs7d/C2crD/2hL7VX3m/1qcdVz3ucP/W37MsH/55dc71lX/MnZ+8bq9/cZ+4HwT+it8ivfk9fef8LGRiXxQ==
+  </data>
+ </layer>
+ <layer id="3" name="deco" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt0MEJADAIBEH7h5Ri0qI24ceM4PdgJ8JNCJyJUZsECBAgQIAAAQIECBAgQIAAAQIECBAgQIDAeoHswtv/1pf+E1g/jgKY
+  </data>
+ </layer>
+ <layer id="4" name="unit" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt1k0KgCAQhmGvYJ2klXSMuv9hJFB06eYbG30DocUwP48ahcCDAAIIIIAAAgjoBE5dajJPEjgm1aWsXoD7qjemQhPgvDUL3hDYUSA6GPpx0CMt+hP427/0d87r8qdp23G/d9bfh2Q76lLVLsE070DOWGLugVhC9hHI80cDGg==
+  </data>
+ </layer>
+ <layer id="5" name="fore" width="42" height="42">
+  <data encoding="base64" compression="zlib">
+   eAHt0DENAAAMw7CiGX+II9Gjh4MgcrLT7aw4IUCAAAECBAgQIECAAAECBAgQIECAAAECBAgQIFAReB5kACc=
+  </data>
+ </layer>
+</map>

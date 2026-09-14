@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="42" height="24" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain=",,,0"/>
+  <tile id="5" terrain=",,0,0"/>
+  <tile id="6" terrain=",,0,"/>
+  <tile id="12" terrain="0,0,0,"/>
+  <tile id="13" terrain="0,0,,"/>
+  <tile id="14" terrain="0,0,,0"/>
+  <tile id="36" terrain=",0,,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,,0,"/>
+  <tile id="44" terrain="0,,0,"/>
+  <tile id="46" terrain=",0,,0"/>
+  <tile id="68" terrain=",0,,"/>
+  <tile id="69" terrain="0,0,,"/>
+  <tile id="70" terrain="0,,,"/>
+  <tile id="76" terrain="0,,0,0"/>
+  <tile id="77" terrain=",,0,0"/>
+  <tile id="78" terrain=",0,0,0"/>
+ </tileset>
+ <layer name="back" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENgDAUA9HfBiYBJgnZf5+YHS4IoSssXeXmtarasj1rYJNfTx/ZmV1w0789u7MBN/1L++iuu+6666677v91p3uVO92r3On+gqnuuuv+Tk+NJaVD
+  </data>
+ </layer>
+ <layer name="stage" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUBsimBeI+QYpVkVypy7D4AX6DCPLnUyMtNUz0sKT1mDUndQFo+6kLhiO7nQio4wkBhBj7nAMz4EElLiT0nRAin5qhGcLELMC7WQDYnYg7iBTDTnuxNVGoNQ+cgE10ycsHrH5BT2OSfUvIXeS016jBcDmTheg21zxuA/Z7fRIm7jcmQI0K3WQhCMMoLvTbxDjge7nkoIBW3czZA==
+  </data>
+ </layer>
+ <layer name="deco" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt0sEJACAQA8GrSeu0ZzsQfEjgnKlgIanihZUOgOZmOiBspAO48stf/fKsww9sDJC1AZgjAb0=
+  </data>
+ </layer>
+ <layer name="unit" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzgEJAAAIAzArGcD+tSwhyGFLsCoAIMF8BwCO9HcAQi2ZNgBv
+  </data>
+ </layer>
+ <layer name="fore" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztzjENAAAIA7D5T/CMhz0ctAqa8MVcBwAAAKgtre0Ajg==
+  </data>
+ </layer>
+</map>

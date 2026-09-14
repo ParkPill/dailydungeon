@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="22" height="15" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+ </tileset>
+ <layer name="back" width="22" height="15">
+  <data encoding="base64" compression="zlib">
+   eJydUkkSgCAM44q+BHyJ8kme6oIwWNsSesjAsKRJ2uiciwyWsub+bLvg37t1sOc4CRp3At5XPZ7RRXnB+ipur2FCF/0r+NV0z+REeX68lpwOe15Z0lGxz3F9stJ0AT7VnDqOplOqh8xDPwNBr/14pLPP5ZR0Xdy8D31a+wj4hPpo8An5q/+TsLf28QS/PEnZ
+  </data>
+ </layer>
+ <layer name="deco" width="22" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBi6oBeI+xgYGtDFiAV9VHXNKKAEdANxDxK/H8JvGBjX0BeQkmZ7yQyTXlQ22AxS0z96XiNR75AGAD1bCsc=
+  </data>
+ </layer>
+ <layer name="stage" width="22" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUKMR5gViPiphfiRzdRmoB/RHzSXLXBdGBgZXRuqbmwI0M5WK5rICMRsaZifTXCUktioDZnpXx6GWFPe6ArEbGnYn0b3odpMCYHrpkc58gdiPStifATM+qIkBaAYaEw==
+  </data>
+ </layer>
+ <layer name="unit" width="22" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwxmYDrQDRsEoGAYAALMQADY=
+  </data>
+ </layer>
+ <layer name="fore" width="22" height="15">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B00MfA0NALxAPtDkKAiRE7JtcsWqilNqDE7oF092AGAGiYAjo=
+  </data>
+ </layer>
+</map>

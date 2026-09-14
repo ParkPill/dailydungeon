@@ -1,0 +1,272 @@
+<Solution>
+  <PropertyGroup Name="PlatformDefense" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="knight">
+          <Image Name="knightEyes.png" />
+          <Image Name="knightHead.png" />
+          <Image Name="knightLeftArmCover.png" />
+          <Image Name="knightLeftFoot.png" />
+          <Image Name="knightLeftHand.png" />
+          <Image Name="knightLeftLegCover.png" />
+          <Image Name="knightLeftLowerArm.png" />
+          <Image Name="knightLeftLowerLeg.png" />
+          <Image Name="knightLeftUpperArm.png" />
+          <Image Name="knightLeftUpperLeg.png" />
+          <Image Name="knightLowerSpine.png" />
+          <Image Name="knightPenisCover.png" />
+          <Image Name="knightRightArmCover.png" />
+          <Image Name="knightRightFoot.png" />
+          <Image Name="knightRightHand.png" />
+          <Image Name="knightRightLegCover.png" />
+          <Image Name="knightRightLowerArm.png" />
+          <Image Name="knightRightLowerLeg.png" />
+          <Image Name="knightRightUpperArm.png" />
+          <Image Name="knightRightUpperLeg.png" />
+          <Project Name="knightSkeleton.csd" Type="Skeleton" />
+          <Image Name="knightSword.png" />
+          <Image Name="knightTopSpine.png" />
+        </Folder>
+        <Project Name="Achieve.csd" Type="Scene" />
+        <Image Name="apple.png" />
+        <Project Name="Armor.csd" Type="Scene" />
+        <Image Name="armor.png" />
+        <Image Name="armorIconAttack.png" />
+        <Image Name="armorIconCritical.png" />
+        <Image Name="armorIconDefence.png" />
+        <Image Name="armorIconDefense.png" />
+        <Image Name="armorIconFireCoolTime.png" />
+        <Image Name="armorIconHP.png" />
+        <Image Name="armorIconMiss.png" />
+        <Image Name="armorIconPower.png" />
+        <Image Name="arrowUpIcon.png" />
+        <Project Name="Attend.csd" Type="Scene" />
+        <Image Name="Avatar_Head.png" />
+        <Image Name="Avatar_silhouette.png" />
+        <Project Name="AvatarSelect.csd" Type="Scene" />
+        <Image Name="background.png" />
+        <Image Name="backLight.png" />
+        <Project Name="Bag.csd" Type="Scene" />
+        <Image Name="bat0.png" />
+        <Image Name="bat1.png" />
+        <Project Name="Battle.csd" Type="Scene" />
+        <Image Name="battleIcon.png" />
+        <Image Name="BI.png" />
+        <Image Name="blueKey.png" />
+        <Project Name="Boss.csd" Type="Scene" />
+        <Project Name="BossFightResult.csd" Type="Scene" />
+        <Image Name="btnBase.png" />
+        <Image Name="btnBase14.png" />
+        <Image Name="btnBaseDisabled.png" />
+        <Image Name="btnBaseHighlight.png" />
+        <Image Name="btnMetal.png" />
+        <Image Name="btnYellow.png" />
+        <Image Name="btnYellowPress.png" />
+        <Image Name="bunny.png" />
+        <Project Name="BuyButton.csd" Type="Node" />
+        <Image Name="cardBest.png" />
+        <Image Name="cardBetter.png" />
+        <Image Name="cardGood.png" />
+        <Image Name="cardHero.png" />
+        <Image Name="cardLegend.png" />
+        <Project Name="ChangeName.csd" Type="Scene" />
+        <Image Name="checkBoard.png" />
+        <Project Name="Chest.csd" Type="Scene" />
+        <Image Name="close.png" />
+        <Image Name="coin.png" />
+        <Project Name="Collection.csd" Type="Scene" />
+        <Image Name="controller.png" />
+        <Project Name="Credit.csd" Type="Scene" />
+        <Image Name="crystal.png" />
+        <Image Name="crystalUI.png" />
+        <Project Name="DailyDungeon.csd" Type="Scene" />
+        <Project Name="DailyDungeonResult.csd" Type="Scene" />
+        <Image Name="darkRect.png" />
+        <Image Name="daryHappy.png" />
+        <Image Name="daryHappyTwoHandsUp.png" />
+        <Project Name="EnergyBar.csd" Type="Scene" />
+        <Image Name="energyBar.png" />
+        <Image Name="energyBarBack.png" />
+        <Project Name="ExistNameAndID.csd" Type="Scene" />
+        <Project Name="Exit.csd" Type="Scene" />
+        <Image Name="fiftyFiveRect.png" />
+        <Image Name="fiftyOneRect.png" />
+        <Image Name="fiftyRect.png" />
+        <Image Name="fiftyThreeRect.png" />
+        <Project Name="FoundRewardPopup.csd" Type="Scene" />
+        <Image Name="frame_yellow.png" />
+        <Image Name="gearBig.png" />
+        <Image Name="gearSmall.png" />
+        <Image Name="gemPack0.png" />
+        <Image Name="gemPack2.png" />
+        <Image Name="gemPack3.png" />
+        <Image Name="gemPack4.png" />
+        <Project Name="Gift.csd" Type="Scene" />
+        <Image Name="goblinShadow.png" />
+        <Image Name="goblinShadowEnlightned.png" />
+        <Image Name="goldenBar.png" />
+        <Image Name="goldenGun.png" />
+        <Image Name="goldRedChest.png" />
+        <Image Name="grassOnCard.png" />
+        <Image Name="gunHead.png" />
+        <Image Name="gunHeadLeg.png" />
+        <Image Name="heart.png" />
+        <Image Name="heartAndArmor.png" />
+        <Image Name="heartHalf.png" />
+        <Image Name="HelloWorld.png" />
+        <Project Name="HudLayer.csd" Type="Scene" />
+        <Image Name="iconAccount.png" />
+        <Image Name="iconAchieve.png" />
+        <Image Name="iconAlert.png" />
+        <Image Name="iconArmor.png" />
+        <Image Name="iconBag.png" />
+        <Image Name="iconBan.png" />
+        <Image Name="iconBoss.png" />
+        <Image Name="iconCalendar.png" />
+        <Image Name="iconCheck.png" />
+        <Image Name="iconCollect.png" />
+        <Image Name="iconDay.png" />
+        <Image Name="iconFrame.png" />
+        <Image Name="iconGem.png" />
+        <Image Name="iconGift.png" />
+        <Image Name="iconGun.png" />
+        <Image Name="iconLock.png" />
+        <Image Name="iconLockSmall.png" />
+        <Image Name="iconMenu.png" />
+        <Image Name="iconMusic.png" />
+        <Image Name="iconPlay.png" />
+        <Image Name="iconPost.png" />
+        <Image Name="iconRefresh.png" />
+        <Image Name="iconResearch.png" />
+        <Image Name="iconRune.png" />
+        <Image Name="iconShield.png" />
+        <Image Name="iconSound.png" />
+        <Image Name="iconSuitcase.png" />
+        <Project Name="image test.csd" Type="Scene" />
+        <Image Name="inputField.png" />
+        <Image Name="ironBuilding.png" />
+        <Image Name="itemBase.png" />
+        <Project Name="ItemGet.csd" Type="Scene" />
+        <Project Name="ItemInfo.csd" Type="Scene" />
+        <Image Name="keyboardKey.png" />
+        <Project Name="KeySetting.csd" Type="Scene" />
+        <Project Name="LanguageSelect.csd" Type="Scene" />
+        <TmxFile Name="ldd_stage0.tmx" />
+        <Image Name="lightning0.png" />
+        <Image Name="lightning1.png" />
+        <Image Name="lightning2.png" />
+        <Image Name="lionFlag.png" />
+        <Image Name="lionFlagSmall.png" />
+        <Image Name="lock.png" />
+        <Image Name="machineGun.png" />
+        <Image Name="machineryFrame0.png" />
+        <Image Name="machineryFrame1.png" />
+        <Image Name="machineryFrame2.png" />
+        <Image Name="magic.png" />
+        <Image Name="magicShield.png" />
+        <Project Name="Menu.csd" Type="Scene" />
+        <Project Name="MessageBox.csd" Type="Scene" />
+        <Image Name="metalDeco0.png" />
+        <Image Name="metalDeco1.png" />
+        <Project Name="Mission.csd" Type="Scene" />
+        <Image Name="missionIcon.png" />
+        <Project Name="MobileTitle.csd" Type="Scene" />
+        <Image Name="moreDarkRect.png" />
+        <Image Name="mouse.png" />
+        <Image Name="networkTicket.png" />
+        <Image Name="noads.png" />
+        <Image Name="oldSuitcase.png" />
+        <Image Name="panelBase.png" />
+        <Image Name="panelBaseGold.png" />
+        <Image Name="Panelframe.png" />
+        <Image Name="panelGold.png" />
+        <Image Name="pierrotFace.png" />
+        <Image Name="pierrotWithGuns.png" />
+        <Image Name="pipe.png" />
+        <Image Name="pipeSmoke0.png" />
+        <Image Name="pipeSmoke1.png" />
+        <Image Name="pipeSmoke2.png" />
+        <Image Name="pipeSmoke3.png" />
+        <Image Name="pipeSmoke4.png" />
+        <Image Name="pipeSmoke5.png" />
+        <Image Name="pipeSmoke6.png" />
+        <Image Name="pipeSmoke7.png" />
+        <Image Name="pistol.png" />
+        <Image Name="playIcon.png" />
+        <Image Name="plusSign.png" />
+        <Image Name="pnlBaseSimple.png" />
+        <Project Name="Post.csd" Type="Scene" />
+        <Project Name="Profile.csd" Type="Scene" />
+        <Project Name="Promote.csd" Type="Scene" />
+        <Image Name="redCarpetBack.png" />
+        <Image Name="redDot.png" />
+        <Project Name="RegisterName.csd" Type="Scene" />
+        <Project Name="Research.csd" Type="Scene" />
+        <Project Name="Result.csd" Type="Scene" />
+        <Image Name="resultFrame.png" />
+        <Project Name="ResultPopup.csd" Type="Node" />
+        <Project Name="ResultPopupNew.csd" Type="Node" />
+        <Project Name="Rune.csd" Type="Scene" />
+        <Project Name="RuneDesc.csd" Type="Scene" />
+        <Image Name="runeStone0.png" />
+        <Image Name="runeStone1.png" />
+        <Image Name="runeStone2.png" />
+        <Image Name="runeStone3.png" />
+        <Image Name="runeSymbol0.png" />
+        <Image Name="runeSymbol1.png" />
+        <Image Name="runeSymbol2.png" />
+        <Image Name="runeSymbol3.png" />
+        <Project Name="SceneChange.csd" Type="Scene" />
+        <Project Name="SceneChanger.csd" Type="Scene" />
+        <Project Name="Search.csd" Type="Scene" />
+        <Image Name="searchIcon.png" />
+        <Project Name="SearchResult.csd" Type="Scene" />
+        <Project Name="Setting.csd" Type="Scene" />
+        <Image Name="settingSign.png" />
+        <Image Name="shield.png" />
+        <Image Name="shield0.png" />
+        <Image Name="shield6.png" />
+        <Project Name="Shop.csd" Type="Scene" />
+        <Image Name="shopIcon.png" />
+        <Image Name="sixtyRect.png" />
+        <Image Name="smallCoin.png" />
+        <Image Name="spliter.png" />
+        <Image Name="stageWithDAry.png" />
+        <Image Name="star.png" />
+        <Project Name="StartWeapon.csd" Type="Scene" />
+        <Image Name="stone0.png" />
+        <Image Name="stone1.png" />
+        <Image Name="stone2.png" />
+        <Image Name="stone3.png" />
+        <Image Name="stone4.png" />
+        <Image Name="stone5.png" />
+        <Image Name="stone6.png" />
+        <Image Name="suitcaseGift.png" />
+        <Image Name="sword.png" />
+        <Image Name="swordShield.png" />
+        <Project Name="TalkBalloon.csd" Type="Scene" />
+        <Image Name="talkBalloonEmpty.png" />
+        <Image Name="test.png" />
+        <Image Name="ticket.png" />
+        <Project Name="Title.csd" Type="Scene" />
+        <Image Name="titleBack.png" />
+        <Image Name="trophy.png" />
+        <Image Name="trophyIcon.png" />
+        <Project Name="UnderConstruction.csd" Type="Scene" />
+        <Project Name="UserSelect.csd" Type="Scene" />
+        <Image Name="videoIcon.png" />
+        <Project Name="VideoStore.csd" Type="Scene" />
+        <TTF Name="visitor1.ttf" />
+        <Image Name="whiteBigCircle.png" />
+        <Image Name="whiteCard.png" />
+        <Image Name="whiteCircle.png" />
+        <Image Name="whiteLine.png" />
+        <Fnt Name="whitePixelFont.fnt" />
+        <Image Name="whiteRect.png" />
+        <Image Name="wolfFlag.png" />
+        <Image Name="wolfFlagSmall.png" />
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
