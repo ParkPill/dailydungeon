@@ -287,6 +287,7 @@ bool HudLayer::init()
     GameManager::getInstance()->page = PAGE_STAGE;
     
     registerControllerListener();
+#if !defined(DAILYDUNGEON_STEAM)
     // lr
     joystickLR = SneakyJoystickSkinnedBase::create();
     Sprite* pBack = Sprite::create("UI/btnLR.png");
@@ -351,6 +352,7 @@ bool HudLayer::init()
 //    joystickAim->setVisible(forceTouchPossible || !isAutoSelected);
     js2->setVisible(true);// touch and aim to shoot
     joystickAim->setVisible(true);// touch and aim to shoot
+#endif
     
     btnShoot = VirtualPadButton::create(BUTTON_SHOOT);
     this->addChild(btnShoot);
@@ -5458,6 +5460,9 @@ void HudLayer::onFAQClick(){
     
 }
 void HudLayer::hideBtns(){
+#if defined(DAILYDUNGEON_STEAM)
+    return;
+#else
     if (joystickAim->getPositionY() < 0) {
         return;
     }
@@ -5469,13 +5474,16 @@ void HudLayer::hideBtns(){
     joystickLR->runAction(MoveBy::create(0.1f, Point(0, -300)));
     joystickAim->setTag(joystickAim->getPositionY());
     joystickLR->setTag(joystickLR->getPositionY());
+#endif
 }
 void HudLayer::toggleAuto(bool showMsg){
     bool isAuto = !GameManager::getInstance()->getCurrentStageLayer()->isAutoTargetingOn;
     GameManager::getInstance()->getCurrentStageLayer()->isAutoTargetingOn = isAuto;
     btnShoot->setVisible(isAuto);
+#if !defined(DAILYDUNGEON_STEAM)
     joystickAim->setVisible(!isAuto);
     js2->setVisible(!isAuto);
+#endif
     Sprite* spt = Sprite::create(isAuto?"UI/btnToggleManual.png":"UI/btnToggleAuto.png");
     btnToggle->setSpriteFrame(spt->getSpriteFrame());
     UserDefault::getInstance()->setBoolForKey(KEY_AUTO_TARGET_SELECTED, isAuto);
@@ -5948,6 +5956,9 @@ void HudLayer::onDialogDone(){
     }
 }
 void HudLayer::showBtns(){
+#if defined(DAILYDUNGEON_STEAM)
+    return;
+#else
     if (joystickAim->getPositionY() > 0) {
         return;
     }
@@ -5956,6 +5967,7 @@ void HudLayer::showBtns(){
     }
     joystickAim->runAction(MoveTo::create(0.1f, Point(joystickAim->getPositionX(), joystickAim->getTag())));
     joystickLR->runAction(MoveTo::create(0.1f, Point(joystickLR->getPositionX(), joystickLR->getTag())));
+#endif
 }
 void HudLayer::showEnding(){
     hideBtns();
@@ -6983,8 +6995,10 @@ void HudLayer::removeUsedAssets(){
     btnWeapon->removeListener();
     btnReload->removeListener();
     btnAction->removeListener();
+#if !defined(DAILYDUNGEON_STEAM)
     js->removeListener();
     js2->removeListener();
+#endif
     _eventDispatcher->removeEventListener(touchListener);
     _eventDispatcher->removeEventListener(listener);
     /*if (gameOverLayer) {
@@ -7186,8 +7200,10 @@ void HudLayer::removeListener(){
         btn->removeListener();
     }
     this->unschedule(schedule_selector(HudLayer::update));
+#if !defined(DAILYDUNGEON_STEAM)
     js->removeListener();
     js2->removeListener();
+#endif
 }
 void HudLayer::addListener(){
     touchListener = EventListenerTouchAllAtOnce::create();

@@ -22,6 +22,12 @@ include(AXGameEngineSetup)
 file(GLOB_RECURSE GAME_HEADER CONFIGURE_DEPENDS Source/*.h Source/*.hpp)
 file(GLOB_RECURSE GAME_SOURCE CONFIGURE_DEPENDS Source/*.cpp Source/*.c)
 
+# Steam is keyboard/mouse/controller only.  Keep the old mobile joystick files
+# as migration reference, but do not compile or link them into this target.
+list(REMOVE_ITEM GAME_SOURCE
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/SneakyJoystick.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/SneakyJoystickSkinnedBase.cpp")
+
 set(GAME_INC_DIRS
     "${CMAKE_CURRENT_SOURCE_DIR}/Source"
     "${_AX_ROOT}/axmol"
@@ -37,6 +43,7 @@ endif()
 
 set(APP_SOURCES ${GAME_HEADER} ${GAME_SOURCE})
 include(AXGameTargetSetup)
+target_compile_definitions(${APP_NAME} PRIVATE DAILYDUNGEON_STEAM=1)
 ax_setup_app_config(${APP_NAME})
 include(AXGamePlatformSetup)
 include(AXGameFinalSetup)

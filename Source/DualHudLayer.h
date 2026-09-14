@@ -1,8 +1,6 @@
 #ifndef AlmostLegendary_DualHudLayer_h
 #define AlmostLegendary_DualHudLayer_h
 
-#include "SneakyJoystickSkinnedBase.h"
-#include "SneakyJoystick.h"
 #include "VirtualPadButton.h"
 #include "ui/UIWidget.h"
 #include "ui/UISlider.h"
@@ -40,12 +38,6 @@ private:
     cocos2d::Point btnJumpPos;
     cocos2d::Point btnReloadPos;
     cocos2d::Point btnWeaponPos;
-    cocos2d::Point joystickLRPos;
-    cocos2d::Point joystickAimPos;
-    SneakyJoystickSkinnedBase* joystickLR;
-    SneakyJoystickSkinnedBase* joystickAim;
-    SneakyJoystick* js2;
-    SneakyJoystick* js;
     VirtualPadButton* btnJump;
     VirtualPadButton* btnReload;
     VirtualPadButton* btnWeapon;
