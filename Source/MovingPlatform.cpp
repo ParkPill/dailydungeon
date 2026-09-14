@@ -59,19 +59,19 @@ void MovingPlatform::updatePosition(float dt)
     }
     
     
-//    desiredRect = RectMake(targetX, targetY, boundingBox().size.width, boundingBox().size.height);
+//    desiredRect = RectMake(targetX, targetY, getBoundingBox().size.width, getBoundingBox().size.height);
     Point dPoint = Point(targetX, targetY);
     Point diff = dPoint - current;
     
-    desiredRect = RectOffset(boundingBox(), diff.x, diff.y);
+    desiredRect = RectOffset(getBoundingBox(), diff.x, diff.y);
     
     if (player) {
         Point playerPos = player->getPosition();
         Hero* drop = (Hero*)player;
         drop->desiredPosition = Point(drop->desiredPosition.x + targetX - current.x, drop->desiredPosition.y + targetY - current.y);
         
-        if (drop->collisionBoundingBox().origin.x > boundingBox().origin.x + boundingBox().size.width ||
-            drop->collisionBoundingBox().origin.x + drop->collisionBoundingBox().size.width < boundingBox().origin.x) {
+        if (drop->collisionBoundingBox().origin.x > getBoundingBox().origin.x + getBoundingBox().size.width ||
+            drop->collisionBoundingBox().origin.x + drop->collisionBoundingBox().size.width < getBoundingBox().origin.x) {
             this->player = NULL;
             drop->currentPlatform = NULL;
         }

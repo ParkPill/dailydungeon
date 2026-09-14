@@ -2,7 +2,7 @@
 #include "GameManager.h"
 LegendDaryButton::LegendDaryButton()
 {
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
 //    isOrigianlScaleSet = false;
 //    this->addListener();
 }
@@ -141,7 +141,7 @@ void LegendDaryButton::onExit()
 
 bool LegendDaryButton::containsTouchLocation(Touch* touch)
 {
-    return rect().containsPoint(convertTouchToNodeSpaceAR(touch));
+    return rect().containsPoint(convertToNodeSpaceAR(touch->getLocation()));
 }
 
 bool LegendDaryButton::onTouchBegan(Touch *touch, Event *unused_event)

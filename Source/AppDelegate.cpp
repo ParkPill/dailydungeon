@@ -39,14 +39,6 @@ AppDelegate::~AppDelegate()
 
 //if you want a different context,just modify the value of glContextAttrs
 //it will takes effect on all platforms
-void AppDelegate::initGLContextAttrs()
-{
-    //set OpenGL context attributions,now can only set six attributions:
-    //red,green,blue,alpha,depth,stencil
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
-    
-    GLView::setGLContextAttrs(glContextAttrs);
-}
 
 // If you want to use packages manager to install more packages,
 // don't modify or remove this function
@@ -71,17 +63,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     log("dailydungeon 2");
     // initialize director
     auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
+    auto glview = director->getRenderView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
 //        glview = GLViewImpl::createWithRect("Daily Dungeon", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
-        glview = GLViewImpl::createWithRect("Daily Dungeon", Rect(0, 0, designResolutionSize.width*1.2f, designResolutionSize.height));
+        glview = RenderView::createWithRect("Daily Dungeon", Rect(0, 0, designResolutionSize.width*1.2f, designResolutionSize.height));
 //        glview = GLViewImpl::createWithFullScreen("Daily Dungeon: Pierrot side story");
 //        glview = GLViewImpl::create("Brave Rascal");
 #else
-        glview = GLViewImpl::create("Brave Rascal");
+        glview = RenderView::create("Brave Rascal");
 #endif
-        director->setOpenGLView(glview);
+        director->setRenderView(glview);
     }
     log("dailydungeon 3");
     // turn on display FPS
@@ -138,7 +130,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }   
     AnimationCache::getInstance()->addAnimationsWithFile("animations.plist");
     
-    GameManager::getInstance()->originalSize = director->getWinSize();
+    GameManager::getInstance()->originalSize = director->getVisibleSize();
     GameManager::getInstance()->market = MARKET_PLAYSTORE_FREE;
     GameManager::getInstance()->showVPad = false;
     GameManager::getInstance()->totalThemeCount = 4;
@@ -151,7 +143,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
         UserDefault::getInstance()->setBoolForKey(KEY_REMOVE_ADS_GET, true);
     }
     
-    Director::getInstance()->setProjection(Director::Projection::_2D);
     
     if (GameManager::getInstance()->market == MARKET_MAC ||
         GameManager::getInstance()->market == MARKET_WINDOWS ||
@@ -161,10 +152,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
     //    NativeInterface::NativeInterfacedestroyAds();
     //    NativeInterface::NativeInterfacedestroyRectAds();
-    Director::getInstance()->setDepthTest(false);
     GameManager::getInstance()->firstPlayed = true;
     GameSharing::init();
-    srand((uint)time(NULL));
+    srand(static_cast<unsigned int>(time(nullptr)));
     
     log("about to init GameManager");
     GameManager::getInstance()->initGameManager();
@@ -202,7 +192,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 //        GM->iapFlag = IAP_STATE_READY;
     }
     
-    GM->size = Director::getInstance()->getWinSize();
+    GM->size = Director::getInstance()->getVisibleSize();
 //     create a scene. it's an autorelease object
     
     GM->version = "0.57";
@@ -232,7 +222,7 @@ void AppDelegate::applicationDidEnterBackground() {
 #ifdef SDKBOX_ENABLED
     sdkbox::sessionEnd();
 #endif
-    Director::getInstance()->stopAnimation();
+    Director::getInstance()->deactivate();
     
     
     // if you use SimpleAudioEngine, it must be pause
@@ -244,7 +234,7 @@ void AppDelegate::applicationWillEnterForeground() {
 #ifdef SDKBOX_ENABLED
     sdkbox::sessionStart();
 #endif
-    Director::getInstance()->startAnimation();
+    Director::getInstance()->activate();
     
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();

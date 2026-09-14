@@ -17,8 +17,8 @@
 bool SettingLayer::init()
 {
     Layer::init();
-    size = Director::getInstance()->getWinSize();
-    this->setKeypadEnabled(true);
+    size = Director::getInstance()->getVisibleSize();
+    registerLegacyKeyReleased(this, &SettingLayer::onKeyReleased);
     
     settingLayer = dynamic_cast<Layout*>(GUIReader::getInstance()->widgetFromJsonFile("LegendDary_UI_Setting.json"));
     settingLayer->setPosition(Point(size.width/2 - settingLayer->getContentSize().width/2, 0));
@@ -78,7 +78,7 @@ bool SettingLayer::init()
     lblText->setFontSize(30);
     lblText->setTextColor(Color4B(253,220,37,255));
     lblText->setColor(Color3B::WHITE);
-    ((Label*)lblText->getVirtualRenderer())->enableOutline(Color4B(68, 80, 82, 255), 5);
+    ((Label*)lblText->getRenderNode())->enableOutline(Color4B(68, 80, 82, 255), 5);
     
     btnBack = dynamic_cast<Button*>(Helper::seekWidgetByName(settingLayer, "btnBack_0"));
     btnBack->addTouchEventListener(CC_CALLBACK_2(SettingLayer::onBack, this));//    btnBack->setTitleText(LanguageManager::getInstance()->getText(STR_BACK));

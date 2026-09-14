@@ -11,7 +11,7 @@
 bool Episode::init()
 {
     Layer::init();
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     Label* lbl = Label::createWithTTF("SKIP", GameManager::getInstance()->getFont(FONT_BITDUST_ONE), 35);
     lbl->setColor(Color3B(180,180,180));
     MenuItemLabel* item = MenuItemLabel::create(lbl,  CC_CALLBACK_1(Episode::onSkip, this));

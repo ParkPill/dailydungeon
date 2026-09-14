@@ -11,7 +11,7 @@ bool FifteenSixLogo::init()
     do
     {
         CC_BREAK_IF(! LayerColor::initWithColor(Color4B(27, 26, 25, 255)));
-        size = Director::getInstance()->getWinSize();
+        size = Director::getInstance()->getVisibleSize();
         
         isLab = true;
         if(isLab){
@@ -45,7 +45,7 @@ bool FifteenSixLogo::init()
 }
 void FifteenSixLogo::showSplash(){
     this->removeAllChildren();
-    cocos2d::Size size = Director::getInstance()->getWinSize();
+    cocos2d::Size size = Director::getInstance()->getVisibleSize();
     
     Sprite* background = Sprite::create("kakaoSplash.png");
     this->addChild(background);
@@ -75,7 +75,7 @@ void FifteenSixLogo::showLogo(){
     layout->setContentSize(size);
     layout->setTouchEnabled(true);
     
-    cocos2d::Size size = Director::getInstance()->getWinSize();
+    cocos2d::Size size = Director::getInstance()->getVisibleSize();
     {
         Sprite* background = Sprite::create("1506_logoBackground.png");
         this->addChild(background);

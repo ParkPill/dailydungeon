@@ -26,7 +26,10 @@ file(GLOB_RECURSE GAME_SOURCE CONFIGURE_DEPENDS Source/*.cpp Source/*.c)
 # as migration reference, but do not compile or link them into this target.
 list(REMOVE_ITEM GAME_SOURCE
     "${CMAKE_CURRENT_SOURCE_DIR}/Source/SneakyJoystick.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/Source/SneakyJoystickSkinnedBase.cpp")
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/SneakyJoystickSkinnedBase.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/Android/jni_NativeInterface.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/SocketManager.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/Source/PanZoomLayer.cpp")
 
 set(GAME_INC_DIRS
     "${CMAKE_CURRENT_SOURCE_DIR}/Source"

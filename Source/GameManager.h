@@ -553,7 +553,7 @@ using namespace cocos2d::ui;
 #define UDSetDouble UserDefault::getInstance()->setDoubleForKey
 #define UDGetBool UserDefault::getInstance()->getBoolForKey
 #define UDSetBool UserDefault::getInstance()->setBoolForKey
-#define UDGetStr UserDefault::getInstance()->getStringForKey
+#define UDGetStr(...) std::string(UserDefault::getInstance()->getStringForKey(__VA_ARGS__))
 #define UDSetStr UserDefault::getInstance()->setStringForKey
 #define SPT_REMOVE_FUNC CallFunc::create(CC_CALLBACK_0(Sprite::removeFromParent, spt))
 #define SHAKE_ONCE CallFunc::create(CC_CALLBACK_0(HelloWorld::shakeScreenOnce, this))

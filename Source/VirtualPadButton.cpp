@@ -69,7 +69,7 @@ void VirtualPadButton::addListener(){
 }
 bool VirtualPadButton::onTouchBegan(Touch *touch, Event *unused_event)
 {
-//	Point location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
+//	Point location = CCDirector::getInstance()->screenToCanvas(touch->getLocationInView());
 //	location = this->convertToNodeSpace(location);
     if(!this->isVisible()){
         return false;

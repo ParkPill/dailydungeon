@@ -52,7 +52,7 @@ void Droppable::init(int unit, int eng, float extraSpd, const char* sptName)
     this->Sprite::init();
     unitType = unit;
     SpriteFrame *frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(sptName);
-    this->setDisplayFrame(frame);
+    this->setSpriteFrame(frame);
     this->getTexture()->setAliasTexParameters();
     this->energy = eng;
     this->maxEnergy = eng;
@@ -97,7 +97,7 @@ void Droppable::showTalk(std::string text, float time, float y, float delay){
     GameManager::getInstance()->getCurrentStageLayer()->addChild(imgTalkBalloon, 10000);
     talkVisibleTime = time + delay;
     talkVisibleTimeElapsed = time + delay;
-    this->schedule(schedule_selector(Droppable::updateTalkBalloon), 0.07f, CC_REPEAT_FOREVER, delay);
+    this->schedule(schedule_selector(Droppable::updateTalkBalloon), 0.07f, -1, delay);
 }
 void Droppable::updateTalkBalloon(float dt){
     talkVisibleTimeElapsed -= dt;
@@ -305,7 +305,7 @@ void Droppable::updatePositionForStraight(float dt)
 
     //this->setPosition(ccpAdd(getPosition(), stepVelocity));
     if (freezed) {
-        stepVelocity = Point::ZERO;
+        stepVelocity = Point::zero;
     }
     desiredPosition = getPosition() + stepVelocity;
     this->velocity = vlct;
@@ -367,7 +367,7 @@ Rect Droppable::collisionBoundingBox()
     }
 //    return Rect(desiredPosition.x - TILE_SIZE/2, desiredPosition.y - getContentSize().height/2, width, height);//TILE_SIZE, TILE_SIZE);
     return Rect(desiredPosition.x - width/2, desiredPosition.y - height/2, width, height);
-    Rect bounding = boundingBox();
+    Rect bounding = getBoundingBox();
    
     if (bounding.size.width < TILE_SIZE*2 && bounding.size.height < TILE_SIZE*2) {
         Rect collisionBox = RectInset(bounding, 1, 0);
@@ -414,7 +414,7 @@ Point Droppable::getGravityPosition()
 
 /*Rect Droppable::currentBoundingBox()
 {
-    Rect bounding = boundingBox();
+    Rect bounding = getBoundingBox();
     
     if (vehicleType == VEHICLE_GOLIATH) {
         

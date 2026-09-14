@@ -1,6 +1,6 @@
 #pragma once
 
-// Transitional Cocos2d-x 3.x compatibility used only by Cartoon Craft.
+// Transitional Cocos2d-x 3.x compatibility adapted from Cartoon Craft.
 // Keep this layer in the game project so the Axmol engine checkout remains
 // pristine and legacy call sites can be migrated in small, reviewable groups.
 // APIs already provided by Axmol keep their current names in game code:
@@ -23,6 +23,16 @@
 #include <map>
 #include <string>
 #include <vector>
+
+template <class T>
+inline void registerLegacyKeyReleased(T* owner, void (T::*callback)(ax::KeyboardEvent::KeyCode, ax::Event*))
+{
+    auto* listener = ax::KeyboardEventListener::create();
+    listener->onKeyReleased = [owner, callback](ax::KeyboardEvent* event) {
+        (owner->*callback)(event->getKeyCode(), event);
+    };
+    ax::Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, owner);
+}
 
 namespace ax
 {
@@ -516,6 +526,12 @@ using std::vector;
 #ifndef TOUCH_EVENT_ENDED
 #    define TOUCH_EVENT_ENDED ENDED
 #endif
+#ifndef TOUCH_EVENT_BEGAN
+#    define TOUCH_EVENT_BEGAN BEGAN
+#endif
+#ifndef CCUserDefault
+#    define CCUserDefault ax::UserDefault
+#endif
 
 #ifndef USING_NS_CC
 #    define USING_NS_CC using namespace cocos2d
@@ -529,4 +545,17 @@ using std::vector;
 #endif
 #ifndef CCLOGWARN
 #    define CCLOGWARN cocos2d::log
+#endif
+
+#ifndef CC_BREAK_IF
+#    define CC_BREAK_IF(condition) if (condition) break
+#endif
+#ifndef schedule_selector
+#    define schedule_selector(method) AX_SCHEDULE_SELECTOR(method)
+#endif
+#ifndef CCDirector
+#    define CCDirector ax::Director
+#endif
+#ifndef CCAnimate
+#    define CCAnimate ax::Animate
 #endif

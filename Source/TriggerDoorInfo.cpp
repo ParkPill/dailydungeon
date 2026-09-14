@@ -156,7 +156,7 @@ void TriggerDoorInfo::openDoor()
             break;
     }
     
-    trigger->setDisplayFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("trigger1.png"));
+    trigger->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("trigger1.png"));
     isOpen = true;
 }
 
@@ -208,6 +208,6 @@ void TriggerDoorInfo::closeDoor()
             break;
     }
     
-    trigger->setDisplayFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("trigger0.png"));
+    trigger->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("trigger0.png"));
     isOpen = false;
 }

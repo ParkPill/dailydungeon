@@ -37,10 +37,10 @@ public:
     EventListenerMouse* mouseListner = nullptr;
     bool isMouseLeftDown = false;
     bool isMouseRightDown = false;
-    void onMouseDown(cocos2d::Event* event);
-    void onMouseUp(cocos2d::Event* event);
-    void onMouseMove(cocos2d::Event* event);
-    void onMouseScroll(cocos2d::Event* event);
+    void onMouseDown(cocos2d::EventMouse* event);
+    void onMouseUp(cocos2d::EventMouse* event);
+    void onMouseMove(cocos2d::EventMouse* event);
+    void onMouseScroll(cocos2d::EventMouse* event);
     void Dispose();
 };
 

@@ -18,12 +18,12 @@ bool AwesomeDialogBox::init()
 		// Initialize arrays
 		isWaiting = false;
         isInitialized = false;
-        size = Director::getInstance()->getWinSize();
+        size = Director::getInstance()->getVisibleSize();
         touchCount = 0;
         _background = DrawNode::create();
         _background->setContentSize(Size(size.width, size.height/4));
         _background->drawSolidRect(Point(0, 0), Point(size.width, size.height/4), Color4F(1, 1, 1, 0.2));
-        _background->setPosition(Point::ZERO);
+        _background->setPosition(Point::zero);
 		addChild(_background);
         
         Button* btn = Button::create("whiteRect.png");
@@ -144,8 +144,8 @@ void AwesomeDialogBox::ShowDialog(const char* talks, Layer* layer, FiniteTimeAct
     _leftSide = spt;
     if(_leftSide){
         this->addChild(_leftSide);
-        _leftSide->setAnchorPoint(Vec2::ZERO);
-        _leftSide->setPosition(Vec2::ZERO);
+        _leftSide->setAnchorPoint(Vec2::zero);
+        _leftSide->setPosition(Vec2::zero);
         _leftSide->setScale(scale);
     }
 	this->showNextTalk();
@@ -228,7 +228,7 @@ std::vector<std::string> AwesomeDialogBox::split(const std::string &s, char deli
 }
 //bool AwesomeDialogBox::onTouchBegan(Touch *touch, Event *unused_event){
 //    Point location = touch->getLocationInView();
-//    location = Director::getInstance()->convertToGL(location);
+//    location = Director::getInstance()->screenToCanvas(location);
 //  
 //    touchCount++;
 //    return true;
@@ -236,7 +236,7 @@ std::vector<std::string> AwesomeDialogBox::split(const std::string &s, char deli
 //
 //void AwesomeDialogBox::onTouchMoved(Touch *touch, Event *unused_event){
 //    Point location = touch->getLocationInView();
-//    location = Director::getInstance()->convertToGL(location);
+//    location = Director::getInstance()->screenToCanvas(location);
 //   
 //}
 //void AwesomeDialogBox::onTouchEnded(Touch *touch, Event *unused_event){

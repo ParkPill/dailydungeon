@@ -20,7 +20,7 @@ bool EpisodeLayer::init(){
     {
         CC_BREAK_IF(! Layer::init());
 
-        size = CCDirector::getInstance()->getWinSize();
+        size = CCDirector::getInstance()->getVisibleSize();
         dialogBox = AwesomeDialogBox::create();
         
         addChild(dialogBox, 100);

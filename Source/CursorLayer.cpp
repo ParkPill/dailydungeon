@@ -38,31 +38,25 @@ void CursorLayer::Dispose(){
     _eventDispatcher->removeEventListener(mouseListner);
 }
 
-void CursorLayer::onMouseDown(cocos2d::Event* event)
+void CursorLayer::onMouseDown(cocos2d::EventMouse* event)
 {
-    auto mouseEvent = static_cast<EventMouse*>(event);
-    Vec2 location = Vec2(mouseEvent->getCursorX(), mouseEvent->getCursorY());
-    auto isRight = mouseEvent->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT;
+    auto isRight = event->getMouseButton() == static_cast<int>(InputButton::Right);
 //    auto isRight = mouseEvent->getMouseButton();
     isMouseLeftDown = !isRight;
     isMouseRightDown = isRight;
 }
-void CursorLayer::onMouseUp(cocos2d::Event* event)
+void CursorLayer::onMouseUp(cocos2d::EventMouse* event)
 {
-    auto mouseEvent = static_cast<EventMouse*>(event);
-    Vec2 location = Vec2(mouseEvent->getCursorX(), mouseEvent->getCursorY());
 //    auto isRight = mouseEvent->getMouseButton();
     isMouseLeftDown = false;
     isMouseRightDown = false;
 }
-void CursorLayer::onMouseMove(cocos2d::Event* event)
+void CursorLayer::onMouseMove(cocos2d::EventMouse* event)
 {
-    auto mouseEvent = static_cast<EventMouse*>(event);
-    Vec2 location = Vec2(mouseEvent->getCursorX(), mouseEvent->getCursorY());
+    Vec2 location = event->getLocationInView();
     cursor->setPosition(location);
 }
-void CursorLayer::onMouseScroll(cocos2d::Event* event)
+void CursorLayer::onMouseScroll(cocos2d::EventMouse* event)
 {
-    auto mouseEvent = static_cast<EventMouse*>(event);
-    Vec2 location = Vec2(mouseEvent->getCursorX(), mouseEvent->getCursorY());
+    (void)event;
 }

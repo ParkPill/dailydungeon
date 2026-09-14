@@ -17,7 +17,7 @@ bool EndingCredit::init()
     {
         return false;
     }
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     
     Label* lbl;
     Point startPos = Point(size.width/2, -50);
@@ -95,7 +95,7 @@ bool EndingCredit::init()
         for (int i = 0; i < size.height*3;) {
             Sprite* spt = Sprite::create("bottomTile.png");
             spt->setScale(4);
-            spt->setAnchorPoint(Point::ZERO);
+            spt->setAnchorPoint(Point::zero);
             if(tileWidth == 0){
                 tileWidth = spt->getContentSize().width*spt->getScale();
             }
@@ -129,7 +129,7 @@ void EndingCredit::backgroundSchedule(float dt){
     for (int i = 0; i < size.height*3;) {
         Sprite* spt = Sprite::create("bottomTile.png");
         spt->setScale(4);
-        spt->setAnchorPoint(Point::ZERO);
+        spt->setAnchorPoint(Point::zero);
         
         backgroundLayer->addChild(spt);
         spt->setPosition(Point(backTileStartX, y));

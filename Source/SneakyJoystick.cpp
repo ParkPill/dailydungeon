@@ -15,9 +15,9 @@ bool SneakyJoystick::init()
 {
 	bool pRet = false;
 	//if(Sprite::init()){
-		stickPosition = Point::ZERO;
+		stickPosition = Point::zero;
 		degrees = 0.0f;
-		velocity = Point::ZERO;
+		velocity = Point::zero;
 		autoCenter = true;
 		isDPad = false;
 		hasDeadzone = false;
@@ -31,7 +31,7 @@ bool SneakyJoystick::init()
 		setPosition(Point(0,0));
 		pRet = true;
 	//}
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
 	return pRet;
 }
 
@@ -67,7 +67,7 @@ void SneakyJoystick::updateVelocity(Point point)
 	float dSq = dx * dx + dy * dy;
 	
 	if(dSq <= deadRadiusSq){
-		velocity = Point::ZERO;
+		velocity = Point::zero;
 		degrees = 0.0f;
 		stickPosition = point;
         
@@ -175,7 +175,7 @@ bool SneakyJoystick::onTouchBegan(Touch *touch, Event *unused_event)
     if(!this->isVisible()){
         return false;
     }
-	Point location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
+	Point location = CCDirector::getInstance()->screenToCanvas(touch->getLocationInView());
 	//if([background containsPoint:[background convertToNodeSpace:location]]){
 	location = this->convertToNodeSpace(location);
 	//Do a fast rect check before doing a circle hit check:
@@ -197,7 +197,7 @@ void SneakyJoystick::onTouchMoved(Touch *touch, Event *unused_event)
     if(!this->isVisible()){
         return;
     }
-	Point location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
+	Point location = CCDirector::getInstance()->screenToCanvas(touch->getLocationInView());
 	location = this->convertToNodeSpace(location);
 	this->updateVelocity(location);
     if (touch->getCurrentForce() > 0) {
@@ -212,9 +212,9 @@ void SneakyJoystick::onTouchEnded(Touch *touch, Event *unused_event)
     if(!this->isVisible()){
         return;
     }
-    Point location = Point::ZERO;
+    Point location = Point::zero;
 	if(!autoCenter){
-		Point location = CCDirector::getInstance()->convertToGL(touch->getLocationInView());
+		Point location = CCDirector::getInstance()->screenToCanvas(touch->getLocationInView());
 		location = this->convertToNodeSpace(location);
 	}
 	this->updateVelocity(location);

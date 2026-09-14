@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "LegacyTmx.h"
 #include "SimpleAudioEngine.h"
 #include "LegendDaryButton.h"
 #include "HudLayer.h"
@@ -27,7 +28,7 @@ Scene* HelloWorld::scene(int stage, bool boss)
     GameManager::getInstance()->cPressed = false;
     GameManager::getInstance()->downPressed = false;
     GameManager::getInstance()->upPressed = false;
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getVisibleSize();
     Scene *scene = Scene::create();
     int theme = GameManager::getInstance()->theme;
     GameManager::getInstance()->currentStageIndex = stage;
@@ -95,7 +96,7 @@ Scene* HelloWorld::scene(int stage, bool boss)
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     //////////////////////////////
     // 1. super init first
     theBoss = NULL;
@@ -123,7 +124,7 @@ bool HelloWorld::init()
     otherDelay = 0;
     missileEffectCollapsedTime = 0;
     playerFireCoolTime = 0;
-    this->setKeypadEnabled(true);
+    registerLegacyKeyReleased(this, &HelloWorld::onKeyReleased);
 //    this->setTouchEnabled(true);
     playerIgnoreGravity = false;
     bulletWasted = false;
@@ -464,7 +465,7 @@ void HelloWorld::enemyUpdate(float dt)
         /*Sprite* rectSprite = (Sprite*)drop->getUserData();
         if (!rectSprite) {
             rectSprite = Sprite::create("blackSquare.png");
-            rectSprite->setAnchorPoint(Point::ZERO);
+            rectSprite->setAnchorPoint(Point::zero);
             this->addChild(rectSprite, 100);
             drop->setUserData(rectSprite);
         }
@@ -474,7 +475,7 @@ void HelloWorld::enemyUpdate(float dt)
         rectSprite = (Sprite*)player->getUserData();
         if (!rectSprite) {
             rectSprite = Sprite::create("blackSquare.png");
-            rectSprite->setAnchorPoint(Point::ZERO);
+            rectSprite->setAnchorPoint(Point::zero);
             this->addChild(rectSprite, 100);
             player->setUserData(rectSprite);
         }
@@ -684,7 +685,7 @@ void HelloWorld::updateFireStick(float dt){
             }
             stickR += stick->getContentSize().width;
         }
-        if (stick->boundingBox().intersectsRect(player->damageBoundingBox())) {
+        if (stick->getBoundingBox().intersectsRect(player->damageBoundingBox())) {
             hitDary(player->maxEnergy*0.25f);
             demagingUnit = UNIT_FIRE_STICK;
         }
@@ -743,7 +744,7 @@ void HelloWorld::destructableUpdate()
                     
                     if (drop->getTag() == UNIT_KEYBOARD_KEY) {
                         ((Alphabet*)drop)->keyDownTime = 0.1f;
-                        GameManager::getInstance()->getHudLayer()->typing(((Alphabet*)drop)->lblChar->getString());
+                        GameManager::getInstance()->getHudLayer()->typing(std::string(((Alphabet*)drop)->lblChar->getString()));
                     }
                 }
                 
@@ -975,7 +976,7 @@ void HelloWorld::showResult(){
     resultLayer->getChildByName("lblOk")->setVisible(false);
     ((Text*)resultLayer->getChildByName("lblOk"))->addClickEventListener(CC_CALLBACK_0(HudLayer::tryResultOK, GameManager::getInstance()->getHudLayer()));
     this->resumeLayer();
-    this->schedule(schedule_selector(HelloWorld::updateResult), 0.05, CC_REPEAT_FOREVER, 1);
+    this->schedule(schedule_selector(HelloWorld::updateResult), 0.05, -1, 1);
 }
 void HelloWorld::updateResult(float dt){
     if (resultDone) {
@@ -1425,7 +1426,7 @@ void HelloWorld::shakeScreenSecond(){
     extraCameraPos = Point(-(rand()%10)*0.1, -(rand()%10)*0.1);
 }
 void HelloWorld::shakeScreenEnd(){
-    extraCameraPos = Point::ZERO;
+    extraCameraPos = Point::zero;
 }
 void HelloWorld::removeEnemy(EnemyBase* spt){
     Droppable* drop;
@@ -1709,13 +1710,13 @@ Sprite* HelloWorld::getLightSpin(float persistTime){
     Sprite* shining = Sprite::create("lightSpin.png");
     shining->runAction(RotateBy::create(persistTime, persistTime*90));
     shining->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    BlendFunc f = {GL_DST_COLOR, GL_DST_ALPHA};
+    BlendFunc f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining->setBlendFunc(f);
     
     Sprite* shining2 = Sprite::create("lightSpin.png");
     shining2->runAction(RotateBy::create(persistTime, -persistTime*180));
     shining2->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    f = {GL_DST_COLOR, GL_DST_ALPHA};
+    f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining2->setBlendFunc(f);
     shining->addChild(shining2);
     shining2->setPosition(Point(shining->getContentSize().width/2, shining->getContentSize().height/2));
@@ -2407,7 +2408,7 @@ void HelloWorld::teleportLaterForThemeThree(float dt){
     player->stopAllActions();
     player->setRotation(0);
     player->onGround = false;
-    player->velocity = Point::ZERO;
+    player->velocity = Point::zero;
     player->desiredPosition = player->getPosition();
     spriteBatch->setLocalZOrder(3);
 }
@@ -2442,7 +2443,7 @@ void HelloWorld::teleportLater(float dt){
         player->setPosition(positionToTeleport);
         player->setRotation(0);
         player->onGround = false;
-        player->velocity = Point::ZERO;
+        player->velocity = Point::zero;
     }
 }
 void HelloWorld::showCoinCount(Point pos, int count){
@@ -2622,7 +2623,7 @@ void HelloWorld::addGlowEffect(Sprite* sprite,const Color3B& colour, const Size&
     glowSprite->setPosition(pos);
     glowSprite->setRotation(sprite->getRotation());
     
-    ccBlendFunc f = {GL_ONE, GL_ONE};
+    ccBlendFunc f = {ax::rhi::BlendFactor::ONE, ax::rhi::BlendFactor::ONE};
     glowSprite->setBlendFunc(f);
     sprite->addChild(glowSprite, -1);
     
@@ -2643,7 +2644,7 @@ void HelloWorld::powerTestSchedule(float dt){
 }
 Sprite* HelloWorld::getLight(){
     Sprite* sptLight = Sprite::create("whiteBigCircle.png");
-    BlendFunc f = {GL_DST_COLOR, GL_ONE};
+    BlendFunc f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::ONE};
     sptLight->setBlendFunc(f);
     sptLight->setOpacity(255);
     sptLight->setColor(Color3B(255, 180, 0));
@@ -2664,16 +2665,16 @@ void HelloWorld::setBossMap(int stage){
     
     char buf[50];
     if(stage == 0){
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 0); // start map
     }else if(stage == 1){
-        Director::getInstance()->tilesetName = "stoneTileset.png";
+        tilesetName = "stoneTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 1); // start map
     }else if(stage == 2){
-        Director::getInstance()->tilesetName = "brickTileset.png";
+        tilesetName = "brickTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 2); // start map
     }else if(stage == 3){
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 3); // start map
     }
     
@@ -2690,7 +2691,7 @@ void HelloWorld::setBossMap(int stage){
     scrollView->setAnchorPoint(Point(1, 1));
     scrollView->setContentSize(miniMapSize);
     
-    TMXTiledMap* map = cocos2d::TMXTiledMap::create(buf);
+    TMXTiledMap* map = createLegacyTiledMap(buf, tilesetName);
     
     mapArray.pushBack(map);
     setLayerTag(map);
@@ -2728,13 +2729,13 @@ void HelloWorld::setEntireMap(int stage){
     int tilesetIndex = rand()%3;
     tilesetIndex = 2;
     if (stage < 1) {
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
     }else if(stage%3 == 1){
-        Director::getInstance()->tilesetName = "brickTileset.png";
+        tilesetName = "brickTileset.png";
     }else if(stage%3 == 2){
-        Director::getInstance()->tilesetName = "stoneTileset.png";
+        tilesetName = "stoneTileset.png";
     }
-//    Director::getInstance()->tilesetName = "stoneTileset.png"; // test 
+//    tilesetName = "stoneTileset.png"; // test
     if (stage != STAGE_ENTRANCE) {
 //        GameManager::getInstance()->getHudLayer()->showStageTitle();
     }
@@ -2788,7 +2789,7 @@ void HelloWorld::setEntireMap(int stage){
     
     Rect rect;
     dnMiniMap = DrawNode::create();
-    TMXTiledMap* map = cocos2d::TMXTiledMap::create(buf);
+    TMXTiledMap* map = createLegacyTiledMap(buf, tilesetName);
     
     if(stage == -1){
         setLobby(map);
@@ -2820,7 +2821,7 @@ void HelloWorld::setEntireMap(int stage){
     dnHero->setName("Hero");
     dnHero->setPosition(scrollView->getContentSize()/2);
     dnHero->setPosition(dnHero->getPosition() + Point(-TILE_SIZE*0.3f*0.5f, -TILE_SIZE*0.3f*0.5f));
-    dnHero->drawSolidRect(Point::ZERO, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, 1));
+    dnHero->drawSolidRect(Point::zero, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, 1));
     
     int counter = 0;
     int retryCounter = 0;
@@ -2882,8 +2883,8 @@ void HelloWorld::setEntireMap(int stage){
                 isNormalMap = false;
             }
             
-            map = cocos2d::TMXTiledMap::create(buf);
-            //Director::getInstance()->tilesetName = "";
+            map = createLegacyTiledMap(buf, tilesetName);
+            //tilesetName = "";
             setLayerTag(map);
             if (blueKeyCount > 0 && (rand()%100 < 30 || mapCount <= blueKeyCount)) {
                 tag = MAP_BLUE_KEY;
@@ -2913,7 +2914,7 @@ void HelloWorld::setEntireMap(int stage){
             
             retryCounter++;
             if (retryCounter >= retryOutCount) {
-                MessageBox("Can't believe! Failed to make rooms!", "OMG2");
+                cocos2d::log("Failed to make rooms");
                 break;
             }
         }
@@ -2925,7 +2926,7 @@ void HelloWorld::setEntireMap(int stage){
         this->addChild(darkness);
         darkness->setOpacity(180);
         darkness->setScale(theMap->getContentSize().width/darkness->getContentSize().width, theMap->getContentSize().height/darkness->getContentSize().height);
-        darkness->setAnchorPoint(Point::ZERO);
+        darkness->setAnchorPoint(Point::zero);
         darkness->setPosition(theMap->getPosition());
     }
     
@@ -4265,19 +4266,19 @@ void HelloWorld::setStage(TMXTiledMap* tileMap)
                     
                     CCLOG("Map name: %s", buf);
                     
-                    //    tileMap = cocos2d::TMXTiledMap::create(buf);
+                    //    tileMap = createLegacyTiledMap(buf, tilesetName);
                     
                     //    mapHight = tileMap->getMapSize().height * TILE_SIZE;
                     //    mapRowCount = tileMap->getMapSize().height;
                     //    mapColumnCount = tileMap->getMapSize().width;
                     
                     /*
-                     tileMap = cocos2d::experimental::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      
                      #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-                     tileMap = cocos2d::experimental::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      #else
-                     tileMap = cocos2d::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      #endif
                      */
                     spriteBatchForHero->addChild(player, 10);
@@ -5306,7 +5307,7 @@ void HelloWorld::setStage(TMXTiledMap* tileMap)
                         }
                         spriteBatch->addChild(platform);
                         platform->setPosition(tileMap->getPosition() + Point(i*TILE_SIZE, (totalHeight-j-1)*TILE_SIZE));
-                        platform->setAnchorPoint(Point::ZERO);
+                        platform->setAnchorPoint(Point::zero);
                         platform->originalPos = platform->getPosition();
                         stageLayer->setTileGID(51, point);
                         destructablePlatformArray.pushBack(platform);
@@ -5364,7 +5365,7 @@ void HelloWorld::setStage(TMXTiledMap* tileMap)
                                         spriteBatch->addChild(platform);
                                         
                                         platform->setPosition(startPosition);
-                                        platform->desiredRect = platform->boundingBox();
+                                        platform->desiredRect = platform->getBoundingBox();
                                         
                                         platform->isTowardEnd = true;
                                         
@@ -5614,7 +5615,7 @@ void HelloWorld::fadeMiniMap(float dt){
     DrawNode* dnHero = (DrawNode*)dnMiniMap->getParent()->getChildByName("Hero");
     if(dnHero){
         dnHero->clear();
-        dnHero->drawSolidRect(Point::ZERO, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, miniMapAlpha/255.0f));
+        dnHero->drawSolidRect(Point::zero, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, miniMapAlpha/255.0f));
     }
 }
 void HelloWorld::cloudSchedule(float dt){
@@ -5868,7 +5869,7 @@ void HelloWorld::removeUsedAssets(){
 void HelloWorld::testSchedule(float dt){
     //    testPet->setPosition(player->getPosition() + Point(50, 0));
     //    testPet->setPosition(player->damageBoundingBox().origin);
-    //    testPet->setAnchorPoint(Point::ZERO);
+    //    testPet->setAnchorPoint(Point::zero);
     //    testPet->setScale(player->damageBoundingBox().size.width, player->damageBoundingBox().size.height);
 }
 void HelloWorld::useBomb(){
@@ -6420,9 +6421,9 @@ void HelloWorld::talkUpdate(float dt)
     }
     
     if (talkEncountered) {
-        GameManager::getInstance()->getHudLayer()->showTalk(talkLabelArray.at(currentTalkIndex)->getString().c_str());
+        GameManager::getInstance()->getHudLayer()->showTalk(talkLabelArray.at(currentTalkIndex)->getString().data());
         GameManager::getInstance()->getHudLayer()->lblTouch->runAction(RepeatForever::create(Sequence::create(FadeIn::create(0.1), DelayTime::create(0.2f), FadeOut::create(0.2f), DelayTime::create(0.1f), NULL)));
-        //        CCLOG("encountered: %s", talkLabelArray.at(currentTalkIndex)->getString().c_str());
+        //        CCLOG("encountered: %s", talkLabelArray.at(currentTalkIndex)->getString().data());
     }
     if (shouldReset) {
         currentTalkIndex = -1;
@@ -7225,7 +7226,7 @@ void HelloWorld::addListener(){
 
 bool HelloWorld::onTouchBegan(Touch *touch, Event *unused_event){
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     /*if(location.y > size.height*3/4){
      if(true){//location.x > size.width/2){
@@ -7258,7 +7259,7 @@ void HelloWorld::TouchesBegan(const std::vector<Touch*>& touches, Event *unused_
 {
     Touch *touch = touches.at(0);
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     touchStart = location;
     this->unschedule(schedule_selector(HelloWorld::resetTouchStart));
@@ -7272,7 +7273,7 @@ void HelloWorld::TouchesMoved(const std::vector<Touch*>& touches, Event *unused_
 {
     Touch *touch = touches.at(0);
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     int min = 350;
     
@@ -7343,7 +7344,7 @@ void HelloWorld::TouchesEnded(const std::vector<Touch*>& touches, Event *unused_
 {
     Touch *touch = (Touch*)(touches.at(0));
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
 
 }
 
@@ -7351,7 +7352,7 @@ void HelloWorld::TouchesEnded(const std::vector<Touch*>& touches, Event *unused_
 //{
 //    Touch *touch = (Touch*)(touches.at(0));
 //    Point location = touch->getLocationInView();
-//    location = Director::getInstance()->convertToGL(location);
+//    location = Director::getInstance()->screenToCanvas(location);
 
 //}
 
@@ -8631,8 +8632,8 @@ void HelloWorld::fire()
                 GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
                 laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "", tileMap);
                 laser->setScaleY(0.4);
-                laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-                laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+                laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+                laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
                 laser->sptHit->addChild(getLight());
                 laser->sptBeam->addChild(getLight());
                 laser->sptHit->setScale(2, 1.6);
@@ -8678,13 +8679,13 @@ void HelloWorld::fire()
         Point startPos =msStartPos;// player->getPosition() + player->gun->getPosition() - player->center + gunLengthPos;
         GameManager::getInstance()->playSoundEffect(SOUND_LIGHTNING);
         Sprite* sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 1);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
         sptSpark->runAction(Sequence::create(FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, sptSpark)), NULL));
         sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 3);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
@@ -9034,7 +9035,7 @@ void HelloWorld::missileEffectUpdate(float dt){
                     Droppable* ms = GameManager::getInstance()->getBullet(WEAPON_SHARK_GUN, GameManager::getInstance()->getWeaponPower(WEAPON_SHARK_GUN)*4);
                     ms->setSpriteFrame("bombSmallEffect0.png");
                     ms->effectType = MISSILE_EFFECT_NONE;
-                    ms->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+                    ms->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
                     ms->setScale(0.5);
                     Point msPos = drop->getPosition();
                     //                straightMovingArray.pushBack(ms);

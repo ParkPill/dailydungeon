@@ -194,7 +194,7 @@ void Hero::onLanded(){
 }
 void Hero::getInTheVehicle(int vType, Sprite* vhc)
 {
-    //    Size size = Director::getInstance()->getWinSize();
+    //    Size size = Director::getInstance()->getVisibleSize();
     if (isTowardLeft) {
         vhc->setFlippedX(isTowardLeft);
     }
@@ -332,7 +332,7 @@ void Hero::setRestOfBodyPart(){
 //    faceFlipPos = Point(7, 8);
 
 //    SpriteFrame *frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(GameManager::getInstance()->getPlayerInfoFileName(this->getTag(), PLAYER_INFO_BODY));
-//    this->setDisplayFrame(frame);
+//    this->setSpriteFrame(frame);
     
 //    body = Sprite::createWithSpriteFrameName(GameManager::getInstance()->getPlayerInfoFileName(this->getTag(), PLAYER_INFO_BODY));
 //    this->addChild(body, 1);
@@ -539,7 +539,7 @@ void Hero::tumbleAnimation()
         case CHARACTER_DARY:
             body->stopActionByTag(1);
             body->setPosition(isTowardLeft?bodyPointFlip:bodyPoint);
-            //            body->setDisplayFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("astronautSpin.png"));
+            //            body->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("astronautSpin.png"));
             this->runAction(RotateBy::create(0.5, isTowardLeft?-360:360));
             GameManager::getInstance()->playSoundEffect(SOUND_SPRING);
             break;
@@ -571,7 +571,7 @@ Point Hero::getGravityPosition()
 Rect Hero::damageBoundingBox()
 {
     return Rect(getPosition().x-3, getPosition().y -8, 6, 14);
-    //    Rect bounding = boundingBox();
+    //    Rect bounding = getBoundingBox();
     Point pos = getPosition();
     if (vehicleType == VEHICLE_GOLIATH) {
         Rect collisionBox = Rect(pos.x - TILE_SIZE, pos.y - 6, TILE_SIZE*2, TILE_SIZE);

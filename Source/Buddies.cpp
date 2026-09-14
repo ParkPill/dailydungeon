@@ -21,7 +21,7 @@ void Buddy::initBuddy(int unit, int eng, int petNumber, const char* sptName, int
 //    this->autorelease();
     this->Sprite::init();
     SpriteFrame *frame = SpriteFrameCache::getInstance()->getSpriteFrameByName(sptName);
-    this->setDisplayFrame(frame);
+    this->setSpriteFrame(frame);
     this->getTexture()->setAliasTexParameters();
     this->energy = eng;
     this->maxEnergy = eng;

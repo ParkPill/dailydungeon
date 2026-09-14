@@ -11,7 +11,7 @@
 bool SceneChanger::init()
 {
     Layer::init();
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
 
     return true;
 }

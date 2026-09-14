@@ -17,7 +17,7 @@ bool Title::init()
     GameManager::getInstance()->setCoin(0);
     GameManager::getInstance()->page = PAGE_TITLE;
     Layer::init();
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     
     titleLayer = CSLoader::createNode("Title.csb");
     titleLayer->setPositionX(size.width/2 - titleLayer->getContentSize().width/2);
@@ -144,8 +144,8 @@ void Title::onOnlineClick(){
 }
 void Title::addListener(){
     keyListener = EventListenerKeyboard::create();
-    keyListener->onKeyPressed = CC_CALLBACK_2(Title::onKeyPressed, this);
-//    keyListener->onKeyReleased = CC_CALLBACK_2(HudLayer::onKeyReleased, this);
+    keyListener->onKeyPressed = [this](KeyboardEvent* event) { onKeyPressed(event->getKeyCode(), event); };
+//    keyListener->onKeyReleased = [this](KeyboardEvent* event) { onKeyReleased(event->getKeyCode(), event); };
     
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyListener, this);
     log("addListener");
@@ -214,7 +214,7 @@ void Title::onKeyDown(cocos2d::Controller *controller, int keyCode, cocos2d::Eve
 void Title::onKeyUp(cocos2d::Controller *controller, int keyCode, cocos2d::Event *event)
 {
     //You can get the controller by tag, deviceId or devicename if there are multiple controllers
-    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().c_str());
+    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().data());
     CCLOG("KeyUp:%d", keyCode);
 }
 
@@ -305,7 +305,7 @@ void Title::onExecuted()
     }
     if (actionTaken) {
         
-        this->runAction(Sequence::create(MoveBy::create(0.05, Point(2, 2)), MoveBy::create(0.05, Point(-4, -4)), MoveTo::create(0.05, Point::ZERO), NULL));
+        this->runAction(Sequence::create(MoveBy::create(0.05, Point(2, 2)), MoveBy::create(0.05, Point(-4, -4)), MoveTo::create(0.05, Point::zero), NULL));
     }
 }
 void Title::onPlayClick(){
@@ -427,13 +427,13 @@ Sprite* Title::getLightSpin(float persistTime){
     Sprite* shining = Sprite::create("lightSpin.png");
     shining->runAction(RotateBy::create(persistTime, persistTime*90));
     shining->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    BlendFunc f = {GL_DST_COLOR, GL_DST_ALPHA};
+    BlendFunc f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining->setBlendFunc(f);
     
     Sprite* shining2 = Sprite::create("lightSpin.png");
     shining2->runAction(RotateBy::create(persistTime, -persistTime*180));
     shining2->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    f = {GL_DST_COLOR, GL_DST_ALPHA};
+    f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining2->setBlendFunc(f);
     shining->addChild(shining2);
     shining2->setPosition(Point(shining->getContentSize().width/2, shining->getContentSize().height/2));

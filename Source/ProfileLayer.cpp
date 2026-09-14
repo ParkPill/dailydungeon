@@ -9,7 +9,7 @@
 bool ProfileLayer::init()
 {
     Layer::init();
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     
     // init done
     return true;

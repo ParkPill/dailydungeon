@@ -1,4 +1,5 @@
 #include "DualWorld.h"
+#include "LegacyTmx.h"
 #include "SimpleAudioEngine.h"
 #include "LegendDaryButton.h"
 #include "DualHudLayer.h"
@@ -28,7 +29,7 @@ Scene* DualWorld::scene(int stage)
     GameManager::getInstance()->cPressed = false;
     GameManager::getInstance()->downPressed = false;
     GameManager::getInstance()->upPressed = false;
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getVisibleSize();
     Scene *scene = Scene::create();
     GameManager::getInstance()->currentStageIndex = stage;
     
@@ -56,7 +57,7 @@ Scene* DualWorld::scene(int stage)
 // on "init" you need to initialize your instance
 bool DualWorld::init()
 {
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     //////////////////////////////
     // 1. super init first
     theBoss = NULL;
@@ -79,7 +80,7 @@ bool DualWorld::init()
     otherDelay = 0;
     missileEffectCollapsedTime = 0;
     playerFireCoolTime = 0;
-    this->setKeypadEnabled(true);
+    registerLegacyKeyReleased(this, &DualWorld::onKeyReleased);
 //    this->setTouchEnabled(true);
     playerIgnoreGravity = false;
     bulletWasted = false;
@@ -476,7 +477,7 @@ void DualWorld::enemyUpdate(float dt)
         /*Sprite* rectSprite = (Sprite*)drop->getUserData();
         if (!rectSprite) {
             rectSprite = Sprite::create("blackSquare.png");
-            rectSprite->setAnchorPoint(Point::ZERO);
+            rectSprite->setAnchorPoint(Point::zero);
             this->addChild(rectSprite, 100);
             drop->setUserData(rectSprite);
         }
@@ -486,7 +487,7 @@ void DualWorld::enemyUpdate(float dt)
         rectSprite = (Sprite*)player->getUserData();
         if (!rectSprite) {
             rectSprite = Sprite::create("blackSquare.png");
-            rectSprite->setAnchorPoint(Point::ZERO);
+            rectSprite->setAnchorPoint(Point::zero);
             this->addChild(rectSprite, 100);
             player->setUserData(rectSprite);
         }
@@ -702,7 +703,7 @@ void DualWorld::updateFireStick(float dt){
             }
             stickR += stick->getContentSize().width;
         }
-        if (stick->boundingBox().intersectsRect(player->damageBoundingBox())) {
+        if (stick->getBoundingBox().intersectsRect(player->damageBoundingBox())) {
             hitDary();
             demagingUnit = UNIT_FIRE_STICK;
         }
@@ -756,7 +757,7 @@ void DualWorld::destructableUpdate()
                     
                     if (drop->getTag() == UNIT_KEYBOARD_KEY) {
                         ((Alphabet*)drop)->keyDownTime = 0.1f;
-                        DUAL_HUD->typing(((Alphabet*)drop)->lblChar->getString());
+                        DUAL_HUD->typing(std::string(((Alphabet*)drop)->lblChar->getString()));
                     }
                 }
                 
@@ -1082,9 +1083,9 @@ void DualWorld::showResult(){
 //    Text* lblExp = (Text*)resultLayer->getChildByName("lblExp");
 //    lblExp->setString(StringUtils::format("EXP: %d", exp));
 //    if (isRivalMatch) {
-//        lblTrophy->setString(StringUtils::format("%s (x2)", lblTrophy->getString().c_str()));
-//        lblExp->setString(StringUtils::format("%s (x2)", lblExp->getString().c_str()));
-//        lblCoin->setString(StringUtils::format("%s (x2)", lblCoin->getString().c_str()));
+//        lblTrophy->setString(StringUtils::format("%s (x2)", lblTrophy->getString().data()));
+//        lblExp->setString(StringUtils::format("%s (x2)", lblExp->getString().data()));
+//        lblCoin->setString(StringUtils::format("%s (x2)", lblCoin->getString().data()));
 //    }
     
 //    int winCountForSuitcase = UserDefault::getInstance()->getIntegerForKey(KEY_WIN_COUNT_FOR_SUITCASE, 0);
@@ -1151,7 +1152,7 @@ void DualWorld::showResult(){
                     }
                 }
                 if(!isMissionItem){
-                    spt->runAction(Sequence::create(DelayTime::create(1), JumpBy::create(0.4f, Vec2::ZERO, 20, 1), CallFunc::create(CC_CALLBACK_0(Sprite::removeFromParent, spt)), NULL));
+                    spt->runAction(Sequence::create(DelayTime::create(1), JumpBy::create(0.4f, Vec2::zero, 20, 1), CallFunc::create(CC_CALLBACK_0(Sprite::removeFromParent, spt)), NULL));
                     Sprite* sptGem = Sprite::create("crystalUI.png");
                     clone->addChild(sptGem);
                     sptGem->setScale(0.5f);
@@ -1247,7 +1248,7 @@ void DualWorld::showResult(){
     //resultLayer->getChildByName("lblTotalScoreValue")->setVisible(false);
     resultLayer->getChildByName("lblOk")->setVisible(false);
     this->resumeLayer();
-    this->schedule(schedule_selector(DualWorld::updateResult), 0.1, CC_REPEAT_FOREVER, 1);*/
+    this->schedule(schedule_selector(DualWorld::updateResult), 0.1, -1, 1);*/
 }
 void DualWorld::saveCollectMission(){
     std::string str = "";
@@ -1815,7 +1816,7 @@ void DualWorld::shakeScreenSecond(){
     extraCameraPos = Point(-(rand()%10)*0.1, -(rand()%10)*0.1);
 }
 void DualWorld::shakeScreenEnd(){
-    extraCameraPos = Point::ZERO;
+    extraCameraPos = Point::zero;
 }
 void DualWorld::removeEnemy(EnemyBase* spt){
     Droppable* drop;
@@ -2092,13 +2093,13 @@ Sprite* DualWorld::getLightSpin(float persistTime){
     Sprite* shining = Sprite::create("lightSpin.png");
     shining->runAction(RotateBy::create(persistTime, persistTime*90));
     shining->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    BlendFunc f = {GL_DST_COLOR, GL_DST_ALPHA};
+    BlendFunc f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining->setBlendFunc(f);
     
     Sprite* shining2 = Sprite::create("lightSpin.png");
     shining2->runAction(RotateBy::create(persistTime, -persistTime*180));
     shining2->runAction(Sequence::create(DelayTime::create(persistTime), FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, shining)), NULL));
-    f = {GL_DST_COLOR, GL_DST_ALPHA};
+    f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::DST_ALPHA};
     shining2->setBlendFunc(f);
     shining->addChild(shining2);
     shining2->setPosition(Point(shining->getContentSize().width/2, shining->getContentSize().height/2));
@@ -2730,7 +2731,7 @@ void DualWorld::teleportLaterForThemeThree(float dt){
     player->stopAllActions();
     player->setRotation(0);
     player->onGround = false;
-    player->velocity = Point::ZERO;
+    player->velocity = Point::zero;
     player->desiredPosition = player->getPosition();
     spriteBatch->setLocalZOrder(3);
 }
@@ -2765,7 +2766,7 @@ void DualWorld::teleportLater(float dt){
         player->setPosition(positionToTeleport);
         player->setRotation(0);
         player->onGround = false;
-        player->velocity = Point::ZERO;
+        player->velocity = Point::zero;
     }
 }
 void DualWorld::showCoinCount(Point pos, int count){
@@ -2961,7 +2962,7 @@ void DualWorld::addGlowEffect(Sprite* sprite,const Color3B& colour, const Size& 
     glowSprite->setPosition(pos);
     glowSprite->setRotation(sprite->getRotation());
     
-    ccBlendFunc f = {GL_ONE, GL_ONE};
+    ccBlendFunc f = {ax::rhi::BlendFactor::ONE, ax::rhi::BlendFactor::ONE};
     glowSprite->setBlendFunc(f);
     sprite->addChild(glowSprite, -1);
     
@@ -2982,7 +2983,7 @@ void DualWorld::powerTestSchedule(float dt){
 }
 Sprite* DualWorld::getLight(){
     Sprite* sptLight = Sprite::create("whiteBigCircle.png");
-    BlendFunc f = {GL_DST_COLOR, GL_ONE};
+    BlendFunc f = {ax::rhi::BlendFactor::DST_COLOR, ax::rhi::BlendFactor::ONE};
     sptLight->setBlendFunc(f);
     sptLight->setOpacity(255);
     sptLight->setColor(Color3B(255, 180, 0));
@@ -3003,16 +3004,16 @@ void DualWorld::setBossMap(int stage){
     
     char buf[50];
     if(stage == 0){
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 0); // start map
     }else if(stage == 1){
-        Director::getInstance()->tilesetName = "stoneTileset.png";
+        tilesetName = "stoneTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 1); // start map
     }else if(stage == 2){
-        Director::getInstance()->tilesetName = "brickTileset.png";
+        tilesetName = "brickTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 2); // start map
     }else if(stage == 3){
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
         sprintf( buf, "stages/ldd_boss%d.tmx", 3); // start map
     }
     
@@ -3029,7 +3030,7 @@ void DualWorld::setBossMap(int stage){
     scrollView->setAnchorPoint(Point(1, 1));
     scrollView->setContentSize(miniMapSize);
     
-    TMXTiledMap* map = cocos2d::TMXTiledMap::create(buf);
+    TMXTiledMap* map = createLegacyTiledMap(buf, tilesetName);
     
     if(stage == STAGE_LOBBY){
         setLobby(map);
@@ -3043,7 +3044,7 @@ void DualWorld::setBossMap(int stage){
     setStage(map);
 }
 void DualWorld::setDualMap(){
-    TMXTiledMap* map = cocos2d::TMXTiledMap::create("stages/darydual.tmx");
+    TMXTiledMap* map = createLegacyTiledMap("stages/darydual.tmx", tilesetName);
     theMap = map;
     setLayerTag(map);
     this->addChild(map);
@@ -3174,7 +3175,7 @@ void DualWorld::loadCharData(){
 //    UDSetInt(strmake(KEY_WEAPON_SLOT_FORMAT, 2).c_str(), -1);
 //    UDSetInt(strmake(KEY_WEAPON_SLOT_FORMAT, 3).c_str(), 17);
     
-    std::string playerName = UserDefault::getInstance()->getStringForKey(KEY_NAME, "Guest");
+    std::string playerName = UDGetStr(KEY_NAME, "Guest");
     int playerHealth = 0;
     int playerAttack = 0;
     int runeCountArray[4] = {0,0,0,0};
@@ -3228,7 +3229,7 @@ void DualWorld::loadCharData(){
     
     
 //    while(true){
-//        std::string item = UserDefault::getInstance()->getStringForKey(StringUtils::format(KEY_ITEM_EQUIPPED_FORMAT, index).c_str(), "");
+//        std::string item = UDGetStr(StringUtils::format(KEY_ITEM_EQUIPPED_FORMAT, index).c_str(), "");
 //        if (item.size() > 0) {
 //            ValueVector rows = GameManager::getInstance()->split(item, ",");
 //            if (rows.at(0).asInt() == ITEM_TYPE_WEAPON) {
@@ -3426,7 +3427,7 @@ void DualWorld::readySetBattle(){
 //        this->runAction(ScaleTo::create(dur, 4));
     }else if (readySetBattleState == 1) {
         float dur = 0.4f;
-        std::string playerName = UserDefault::getInstance()->getStringForKey(KEY_NAME, "Guest");
+        std::string playerName = UDGetStr(KEY_NAME, "Guest");
         int playerHealth = 0;
         int playerAttack = 0;
         weaponIndex = 0;
@@ -3498,7 +3499,7 @@ void DualWorld::readySetBattle(){
         }
         
 //        while(true){
-//            std::string item = UserDefault::getInstance()->getStringForKey(StringUtils::format(KEY_ITEM_EQUIPPED_FORMAT, index).c_str(), "");
+//            std::string item = UDGetStr(StringUtils::format(KEY_ITEM_EQUIPPED_FORMAT, index).c_str(), "");
 //            if (item.size() > 0) {
 //                ValueVector rows = GameManager::getInstance()->split(item, ",");
 //                if (rows.at(0).asInt() == ITEM_TYPE_WEAPON) {
@@ -3517,8 +3518,8 @@ void DualWorld::readySetBattle(){
 //                            GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
 //                            laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "");
 //                            laser->setScaleY(0.4);
-//                            laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-//                            laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+//                            laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+//                            laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
 //                            laser->sptHit->addChild(getLight());
 //                            laser->sptBeam->addChild(getLight());
 //                            laser->sptHit->setScale(2, 1.6);
@@ -3641,8 +3642,8 @@ void DualWorld::readySetBattle(){
 //                            GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
 //                            laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "");
 //                            laser->setScaleY(0.4);
-//                            laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-//                            laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+//                            laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+//                            laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
 //                            laser->sptHit->addChild(getLight());
 //                            laser->sptBeam->addChild(getLight());
 //                            laser->sptHit->setScale(2, 1.6);
@@ -3709,11 +3710,11 @@ void DualWorld::setEntireMap(int stage){
     int tilesetIndex = rand()%3;
     tilesetIndex = 2;
     if (stage < 1) {
-        Director::getInstance()->tilesetName = "dungeonTileset.png";
+        tilesetName = "dungeonTileset.png";
     }else if(stage%3 == 1){
-        Director::getInstance()->tilesetName = "brickTileset.png";
+        tilesetName = "brickTileset.png";
     }else if(stage%3 == 2){
-        Director::getInstance()->tilesetName = "stoneTileset.png";
+        tilesetName = "stoneTileset.png";
     }
     
     DUAL_HUD->showStageTitle();
@@ -3760,7 +3761,7 @@ void DualWorld::setEntireMap(int stage){
     
     Rect rect;
     dnMiniMap = DrawNode::create();
-    TMXTiledMap* map = cocos2d::TMXTiledMap::create(buf);
+    TMXTiledMap* map = createLegacyTiledMap(buf, tilesetName);
     
     if(stage == -1){
         setLobby(map);
@@ -3789,7 +3790,7 @@ void DualWorld::setEntireMap(int stage){
     dnHero->setName("Hero");
     dnHero->setPosition(scrollView->getContentSize()/2);
     dnHero->setPosition(dnHero->getPosition() + Point(-TILE_SIZE*0.3f*0.5f, -TILE_SIZE*0.3f*0.5f));
-    dnHero->drawSolidRect(Point::ZERO, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, 1));
+    dnHero->drawSolidRect(Point::zero, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, 1));
     
     int counter = 0;
     int retryCounter = 0;
@@ -3848,8 +3849,8 @@ void DualWorld::setEntireMap(int stage){
                 isNormalMap = false;
             }
             
-            map = cocos2d::TMXTiledMap::create(buf);
-            //Director::getInstance()->tilesetName = "";
+            map = createLegacyTiledMap(buf, tilesetName);
+            //tilesetName = "";
             setLayerTag(map);
             if (blueKeyCount > 0 && (rand()%100 < 30 || mapCount <= blueKeyCount)) {
                 tag = MAP_BLUE_KEY;
@@ -3879,7 +3880,7 @@ void DualWorld::setEntireMap(int stage){
             
             retryCounter++;
             if (retryCounter >= retryOutCount) {
-                MessageBox("Can't believe! Failed to make rooms!", "OMG2");
+                log("Failed to make rooms");
                 break;
             }
         }
@@ -3891,7 +3892,7 @@ void DualWorld::setEntireMap(int stage){
         this->addChild(darkness);
         darkness->setOpacity(180);
         darkness->setScale(theMap->getContentSize().width/darkness->getContentSize().width, theMap->getContentSize().height/darkness->getContentSize().height);
-        darkness->setAnchorPoint(Point::ZERO);
+        darkness->setAnchorPoint(Point::zero);
         darkness->setPosition(theMap->getPosition());
     }
     
@@ -5005,19 +5006,19 @@ void DualWorld::setStage(TMXTiledMap* tileMap)
                     
                     CCLOG("Map name: %s", buf);
                     
-                    //    tileMap = cocos2d::TMXTiledMap::create(buf);
+                    //    tileMap = createLegacyTiledMap(buf, tilesetName);
                     
                     //    mapHight = tileMap->getMapSize().height * TILE_SIZE;
                     //    mapRowCount = tileMap->getMapSize().height;
                     //    mapColumnCount = tileMap->getMapSize().width;
                     
                     /*
-                     tileMap = cocos2d::experimental::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      
                      #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-                     tileMap = cocos2d::experimental::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      #else
-                     tileMap = cocos2d::TMXTiledMap::create(buf);
+                     tileMap = createLegacyTiledMap(buf, tilesetName);
                      #endif
                      */
                     spriteBatchForHero->addChild(player, 10);
@@ -5919,7 +5920,7 @@ void DualWorld::setStage(TMXTiledMap* tileMap)
                         }
                         spriteBatch->addChild(platform);
                         platform->setPosition(tileMap->getPosition() + Point(i*TILE_SIZE, (totalHeight-j-1)*TILE_SIZE));
-                        platform->setAnchorPoint(Point::ZERO);
+                        platform->setAnchorPoint(Point::zero);
                         platform->originalPos = platform->getPosition();
                         stageLayer->setTileGID(51, point);
                         destructablePlatformArray.pushBack(platform);
@@ -5977,7 +5978,7 @@ void DualWorld::setStage(TMXTiledMap* tileMap)
                                         spriteBatch->addChild(platform);
                                         
                                         platform->setPosition(startPosition);
-                                        platform->desiredRect = platform->boundingBox();
+                                        platform->desiredRect = platform->getBoundingBox();
                                         
                                         platform->isTowardEnd = true;
                                         
@@ -6332,7 +6333,7 @@ void DualWorld::fadeMiniMap(float dt){
     DrawNode* dnHero = (DrawNode*)dnMiniMap->getParent()->getChildByName("Hero");
     if(dnHero){
         dnHero->clear();
-        dnHero->drawSolidRect(Point::ZERO, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, miniMapAlpha/255.0f));
+        dnHero->drawSolidRect(Point::zero, Point(TILE_SIZE*0.3f, TILE_SIZE*0.3f), Color4F(1, 0.3, 0.3, miniMapAlpha/255.0f));
     }
 }
 void DualWorld::cloudSchedule(float dt){
@@ -6584,7 +6585,7 @@ void DualWorld::removeUsedAssets(){
 void DualWorld::testSchedule(float dt){
     //    testPet->setPosition(player->getPosition() + Point(50, 0));
     //    testPet->setPosition(player->damageBoundingBox().origin);
-    //    testPet->setAnchorPoint(Point::ZERO);
+    //    testPet->setAnchorPoint(Point::zero);
     //    testPet->setScale(player->damageBoundingBox().size.width, player->damageBoundingBox().size.height);
 }
 void DualWorld::useBomb(){
@@ -7060,8 +7061,8 @@ void DualWorld::talkUpdate(float dt)
     }
     
     if (talkEncountered) {
-        DUAL_HUD->showTalk(talkLabelArray.at(currentTalkIndex)->getString().c_str());
-        //        CCLOG("encountered: %s", talkLabelArray.at(currentTalkIndex)->getString().c_str());
+        DUAL_HUD->showTalk(talkLabelArray.at(currentTalkIndex)->getString().data());
+        //        CCLOG("encountered: %s", talkLabelArray.at(currentTalkIndex)->getString().data());
     }
     if (shouldReset) {
         currentTalkIndex = -1;
@@ -7758,7 +7759,7 @@ void DualWorld::addListener(){
 
 bool DualWorld::onTouchBegan(Touch *touch, Event *unused_event){
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     /*if(location.y > size.height*3/4){
      if(true){//location.x > size.width/2){
@@ -7791,7 +7792,7 @@ void DualWorld::TouchesBegan(const std::vector<Touch*>& touches, Event *unused_e
 {
     Touch *touch = touches.at(0);
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     touchStart = location;
     this->unschedule(schedule_selector(DualWorld::resetTouchStart));
@@ -7805,7 +7806,7 @@ void DualWorld::TouchesMoved(const std::vector<Touch*>& touches, Event *unused_e
 {
     Touch *touch = touches.at(0);
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
     
     int min = 350;
     
@@ -7876,7 +7877,7 @@ void DualWorld::TouchesEnded(const std::vector<Touch*>& touches, Event *unused_e
 {
     Touch *touch = (Touch*)(touches.at(0));
     Point location = touch->getLocationInView();
-    location = Director::getInstance()->convertToGL(location);
+    location = Director::getInstance()->screenToCanvas(location);
 
 }
 
@@ -7884,7 +7885,7 @@ void DualWorld::TouchesEnded(const std::vector<Touch*>& touches, Event *unused_e
 //{
 //    Touch *touch = (Touch*)(touches.at(0));
 //    Point location = touch->getLocationInView();
-//    location = Director::getInstance()->convertToGL(location);
+//    location = Director::getInstance()->screenToCanvas(location);
 
 //}
 
@@ -9183,8 +9184,8 @@ void DualWorld::fire(float dt)
 //                GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
 //                laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "");
 //                laser->setScaleY(0.4);
-//                laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-//                laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+//                laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+//                laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
 //                laser->sptHit->addChild(getLight());
 //                laser->sptBeam->addChild(getLight());
 //                laser->sptHit->setScale(2, 1.6);
@@ -9230,13 +9231,13 @@ void DualWorld::fire(float dt)
         Point startPos = player->getPosition() + player->gun->getPosition() - player->center + gunLengthPos;
         GameManager::getInstance()->playSoundEffect(SOUND_LIGHTNING);
         Sprite* sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 1);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
         sptSpark->runAction(Sequence::create(FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, sptSpark)), NULL));
         sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 3);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
@@ -9584,8 +9585,8 @@ void DualWorld::fire(Weapon* weapon, float dt)
                 GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
                 laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "");
                 laser->setScaleY(0.4);
-                laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-                laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+                laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+                laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
                 laser->sptHit->addChild(getLight());
                 laser->sptBeam->addChild(getLight());
                 laser->sptHit->setScale(2, 1.6);
@@ -9632,13 +9633,13 @@ void DualWorld::fire(Weapon* weapon, float dt)
         Point startPos = weapon->getPosition() - owner->center + gunLengthPos;
         GameManager::getInstance()->playSoundEffect(SOUND_LIGHTNING);
         Sprite* sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 1);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
         sptSpark->runAction(Sequence::create(FadeOut::create(0.5), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, sptSpark)), NULL));
         sptSpark = Sprite::create("bigLaserCircle.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         this->addChild(sptSpark, 3);
         sptSpark->setPosition(startPos);
         sptSpark->setScale(0.5);
@@ -9995,7 +9996,7 @@ void DualWorld::missileEffectUpdate(float dt){
                     Droppable* ms = GameManager::getInstance()->getBullet(WEAPON_SHARK_GUN, GameManager::getInstance()->getWeaponPower(WEAPON_SHARK_GUN)*4);
                     ms->setSpriteFrame("bombSmallEffect0.png");
                     ms->effectType = MISSILE_EFFECT_NONE;
-                    ms->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+                    ms->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
                     ms->setScale(0.5);
                     Point msPos = drop->getPosition();
                     //                straightMovingArray.pushBack(ms);

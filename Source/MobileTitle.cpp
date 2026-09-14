@@ -13,7 +13,7 @@
 bool MobileTitle::init()
 {
     Layer::init();
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     MOBILE_TITLE = this;
     
     Node* titleLayer = CSLoader::createNode("Title.csb");
@@ -58,7 +58,7 @@ bool MobileTitle::init()
     lblWelcome->setVisible(false);
     
     keyListener = EventListenerKeyboard::create();
-    keyListener->onKeyPressed = CC_CALLBACK_2(MobileTitle::onKeyPressed, this);
+    keyListener->onKeyPressed = [this](KeyboardEvent* event) { onKeyPressed(event->getKeyCode(), event); };
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(keyListener, this);
 //    UDSetStr(KEY_SAVED_ID,"-1"); // test 
     std::string id = UDGetStr(KEY_SAVED_ID,"-1");
@@ -230,7 +230,7 @@ void MobileTitle::updateTitle(float dt){
                 nameHandleState = NETWORK_HANDLE_STATE_REQUESTED;
                 showIndicator();
                 TextField* tfPassword = (TextField*)this->getChildByName("namePopup")->getChildByName("imgBackground")->getChildByName("tfPassword");
-                SM->saveUserData(strmake("password=%s", tfPassword->getString().c_str()));
+                SM->saveUserData(strmake("password=%s", tfPassword->getString().data()));
             }
         }
     }
@@ -324,11 +324,11 @@ void MobileTitle::showRegisterName(){
     LM->setLocalizedString(lbl, "confirm password");
     
     TextField* tf = (TextField*)background->getChildByName("tfName");
-    tf->setPlaceHolder(LM->getText("name"));
+    tf->setPlaceholderText(LM->getText("name"));
     tf = (TextField*)background->getChildByName("tfPassword");
-    tf->setPlaceHolder(LM->getText("password"));
+    tf->setPlaceholderText(LM->getText("password"));
     tf = (TextField*)background->getChildByName("tfConfirm");
-    tf->setPlaceHolder(LM->getText("password"));
+    tf->setPlaceholderText(LM->getText("password"));
     
     btn = (Button*)background->getChildByName("btnOk");
     btn->addClickEventListener(CC_CALLBACK_1(MobileTitle::onOkNameClick, this));
@@ -343,10 +343,10 @@ void MobileTitle::onOkNameClick(Ref* ref){
     }else if(tfPassword->getString().compare(tfConfirm->getString()) != 0){
         showInstanceMessage(LM->getText("password not match"));
     }else{
-        nameToRegister = tf->getString();
+        nameToRegister = std::string(tf->getString());
         nameHandleState = NETWORK_HANDLE_STATE_REQUESTED;
         showIndicator();
-        SM->registerName(tf->getString());
+        SM->registerName(std::string(tf->getString()));
     }
 }
 void MobileTitle::showUserSelect(){
@@ -400,9 +400,9 @@ void MobileTitle::showInputUserIDAndName(){
     LM->setLocalizedString(lbl, "password");
     
     TextField* tfName = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfName");
-    tfName->setPlaceHolder(LM->getText("name"));
+    tfName->setPlaceholderText(LM->getText("name"));
     TextField* tfPassword = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfPassword");
-    tfPassword->setPlaceHolder(LM->getText("password"));
+    tfPassword->setPlaceholderText(LM->getText("password"));
     
     btn = (Button*)background->getChildByName("btnOk");
     btn->addClickEventListener(CC_CALLBACK_1(MobileTitle::onCheckExistingUser, this));
@@ -412,7 +412,7 @@ void MobileTitle::onCheckExistingUser(Ref* ref){
     Node* layer = this->getChildByName("accountChange");
     TextField* tfName = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfName");
     TextField* tfPassword = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfPassword");
-    SM->changeAccount(tfName->getString(), tfPassword->getString());
+    SM->changeAccount(std::string(tfName->getString()), std::string(tfPassword->getString()));
 }
 
 void MobileTitle::showInstanceMessage(std::string msg, float stayTime){

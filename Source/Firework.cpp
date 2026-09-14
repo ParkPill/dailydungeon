@@ -110,7 +110,7 @@ void Firework::spriteMoveDone(Node* node){
 	node->removeFromParentAndCleanup(true);
 }
 FireParticle::FireParticle(){
-	velocity = Point::ZERO;
+	velocity = Point::zero;
 	weight = 0.03f;
 }
 FireParticle* FireParticle::create(const char* name){
@@ -121,8 +121,8 @@ FireParticle* FireParticle::create(const char* name){
 void FireParticle::initFire(const char* name){
     sptName = name;
 	Sprite::initWithSpriteFrameName(name);
-//    setBlendFunc({GL_ONE, GL_DST_ALPHA});
-    setBlendFunc({ GL_SRC_ALPHA, GL_ONE });
+//    setBlendFunc({ax::rhi::BlendFactor::ONE, ax::rhi::BlendFactor::DST_ALPHA});
+    setBlendFunc({ ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE });
     setOpacity(200);
 	schedule(schedule_selector(FireParticle::updatePosition));
 }

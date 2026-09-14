@@ -32,11 +32,11 @@ bool HudLayer::init()
         return false;
     }
     weaponIndex = 0;
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     isRecording = false;
     listener = EventListenerKeyboard::create();
-    listener->onKeyPressed = CC_CALLBACK_2(HudLayer::onKeyPressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(HudLayer::onKeyReleased, this);
+    listener->onKeyPressed = [this](KeyboardEvent* event) { onKeyPressed(event->getKeyCode(), event); };
+    listener->onKeyReleased = [this](KeyboardEvent* event) { onKeyReleased(event->getKeyCode(), event); };
     
     cursorLayer = CursorLayer::create();
     this->addChild(cursorLayer);
@@ -252,9 +252,9 @@ bool HudLayer::init()
             int ranking = GameManager::getInstance()->ranking;
             std::string nameStr;
             if (ranking < 0) {
-                nameStr = __String::createWithFormat("100+. %s", UserDefault::getInstance()->getStringForKey(KEY_NAME, "Newbie").c_str())->getCString();
+                nameStr = __String::createWithFormat("100+. %s", UDGetStr(KEY_NAME, "Newbie").c_str())->getCString();
             }else{
-                nameStr = __String::createWithFormat("%d. %s", ranking + 1, UserDefault::getInstance()->getStringForKey(KEY_NAME, "Newbie").c_str())->getCString();
+                nameStr = __String::createWithFormat("%d. %s", ranking + 1, UDGetStr(KEY_NAME, "Newbie").c_str())->getCString();
             }
             lblName->setString(nameStr);
             GameManager::getInstance()->makeLabelEllipsis(lblName, nameWidth);
@@ -354,6 +354,7 @@ bool HudLayer::init()
     joystickAim->setVisible(true);// touch and aim to shoot
 #endif
     
+    const float yOffset = -10;
     btnShoot = VirtualPadButton::create(BUTTON_SHOOT);
     this->addChild(btnShoot);
     btnShoot->setPosition(Point(size.width - 250, 100 + yOffset));
@@ -3612,7 +3613,7 @@ void HudLayer::addGlowBack(Node* parent, float scale){
         spt->setScale(scale*2.6f, scale);
         spt->setPosition(parent->getContentSize()/2);
         spt->setColor(Color3B(200, 200, 100));
-        spt->setBlendFunc({ GL_SRC_ALPHA, GL_ONE });
+        spt->setBlendFunc({ ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE });
         if(i == 0){
             spt->runAction(RepeatForever::create(RotateBy::create(1, -60)));
         }else{
@@ -3861,7 +3862,7 @@ void HudLayer::showCollection(){
     Node* imgIcon;Sprite* spt;
     std::string data = UDGetStr(key.c_str(), "");
     int state;
-    int array[itemCount];
+    std::vector<int> array(itemCount);
     for (int i = 0; i < itemCount; i++) {
         if(data.size() > i){
             state = Value(data.substr(i, 1)).asInt();
@@ -3969,7 +3970,7 @@ void HudLayer::onItemInCollectionClick(Ref* ref){
         
         std::string data = UDGetStr(key.c_str(), "");
         int state;
-        int array[itemCount];
+        std::vector<int> array(itemCount);
         for (int i = 0; i < itemCount; i++) {
             state = Value(data.substr(i, 1)).asInt();
             if(index - initNumber == i){
@@ -5513,19 +5514,19 @@ void HudLayer::registerControllerListener()
         _listener = EventListenerController::create();
         
         //bind onConneected event call function
-        _listener->onConnected = CC_CALLBACK_2(HudLayer::onConnectController,this);
+        _listener->onConnected = [this](ControllerEvent* event) { onConnectController(event->getController(), event); };
         
         //bind disconnect event call function
-        _listener->onDisconnected = CC_CALLBACK_2(HudLayer::onDisconnectedController,this);
+        _listener->onDisconnected = [this](ControllerEvent* event) { onDisconnectedController(event->getController(), event); };
         
         //bind onKeyDown event call function
-        _listener->onKeyDown = CC_CALLBACK_3(HudLayer::onKeyDown, this);
+        _listener->onKeyDown = [this](ControllerEvent* event) { onKeyDown(event->getController(), event->getKeyCode(), event); };
         
         //bind onKeyUp event call function
-        _listener->onKeyUp = CC_CALLBACK_3(HudLayer::onKeyUp, this);
+        _listener->onKeyUp = [this](ControllerEvent* event) { onKeyUp(event->getController(), event->getKeyCode(), event); };
         
         //bind onAxis event call function, onAxis will be called when analog stick is changed
-        _listener->onAxisEvent = CC_CALLBACK_3(HudLayer::onAxisEvent, this);
+        _listener->onAxisEvent = [this](ControllerEvent* event) { onAxisEvent(event->getController(), event->getKeyCode(), event); };
         
         //Activate the listener into the event dispatcher
         Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_listener, this);
@@ -5546,7 +5547,7 @@ void HudLayer::onKeyDown(cocos2d::Controller *controller, int keyCode, cocos2d::
 void HudLayer::onKeyUp(cocos2d::Controller *controller, int keyCode, cocos2d::Event *event)
 {
     //You can get the controller by tag, deviceId or devicename if there are multiple controllers
-    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().c_str());
+    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().data());
     CCLOG("KeyUp:%d", keyCode);
 }
 
@@ -5815,7 +5816,7 @@ void HudLayer::stageTitleLineUpdate(float dt){
     float bulletWidth = 10;
     float gap = 4;
     if (currentLineLength > 10) {
-        dnTitleLine->drawSolidRect(Point::ZERO, Point(currentLineLength, 4), Color4F(235.0f/255, 235.0f/255, 235.0f/255, sptWhiteGun->getOpacity()/255.0f));
+        dnTitleLine->drawSolidRect(Point::zero, Point(currentLineLength, 4), Color4F(235.0f/255, 235.0f/255, 235.0f/255, sptWhiteGun->getOpacity()/255.0f));
     }
     if (currentLineLength < lineLength) {
         currentLineLength += lineLength*dt/0.5f;
@@ -7254,7 +7255,7 @@ void HudLayer::addListener(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
         
         Point location = touch->getLocationInView();
-        location = Director::getInstance()->convertToGL(location);
+        location = Director::getInstance()->screenToCanvas(location);
         
         if (!GameManager::getInstance()->getCurrentStageLayer()->isTouchStarted) {
             return;
@@ -7298,7 +7299,7 @@ void HudLayer::showDialog(const char* message, const char* btn1, const char* btn
     MyMessageBox::getInstance()->showDialog(this, call, message, btn1, btn2);
     GameManager::getInstance()->getHudLayer()->enableJoystick(false);
 
-    this->setTouchEnabled(false);
+    Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
     
     ((HelloWorld*)GameManager::getInstance()->getCurrentStageLayer())->pauseLayer();
 }
@@ -7306,7 +7307,7 @@ void HudLayer::showDialog(const char* message, const char* btn1, const char* btn
 void HudLayer::messageBoxClosed(Node* node)
 {
     ((HelloWorld*)GameManager::getInstance()->getCurrentStageLayer())->resumeLayer();
-	this->setTouchEnabled(true);
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
     //	_dialogBox->setVisible(false);
 	
     GameManager::getInstance()->getHudLayer()->enableJoystick(true);
@@ -7735,7 +7736,7 @@ void HudLayer::updateUI(float dt){
                 Text* lbl= (Text*)background->getChildByName("lblRank");
                 LM->setLocalizedStringNotKey(lbl, strmake(LM->getText("rank th").c_str(), myRank));
                 if (LM->getLanguageType() == LanguageType::ENGLISH) {
-                    std::string text = lbl->getString();
+                    std::string text(lbl->getString());
                     std::string strTH = "th";
                     if(myRank == 1){
                         strTH = "st";
@@ -8577,9 +8578,9 @@ void HudLayer::onChangeAccountClick(){
     LM->setLocalizedString(lbl, "password");
     
     TextField* tfName = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfName");
-    tfName->setPlaceHolder(LM->getText("name"));
+    tfName->setPlaceholderText(LM->getText("name"));
     TextField* tfPassword = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfPassword");
-    tfPassword->setPlaceHolder(LM->getText("password"));
+    tfPassword->setPlaceholderText(LM->getText("password"));
     
     btn = (Button*)background->getChildByName("btnOk");
     btn->addClickEventListener(CC_CALLBACK_1(HudLayer::onOkChangeAccountClick, this));
@@ -8591,7 +8592,7 @@ void HudLayer::onOkChangeAccountClick(Ref* ref){
     TextField* tfPassword = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfPassword");
     showIndicator();
     isChangingAccount = true;
-    SM->changeAccount(tfName->getString(), tfPassword->getString());
+    SM->changeAccount(std::string(tfName->getString()), std::string(tfPassword->getString()));
 }
 
 void HudLayer::onChangeNameClick(){
@@ -8608,7 +8609,7 @@ void HudLayer::onChangeNameClick(){
     setTitle(layer->getChildByName("titleBack"), "change name");
     
     TextField* tfName = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfName");
-    tfName->setPlaceHolder(LM->getText("name"));
+    tfName->setPlaceholderText(LM->getText("name"));
     
     lbl = (Text*)background->getChildByName("lblName");
     LM->setLocalizedString(lbl, "name");
@@ -8626,7 +8627,7 @@ void HudLayer::onOkChangeNameClick(Ref* ref){
     BTN_FROM_REF_AND_DISABLE_FOR_A_SEC
     Node* layer = this->getChildByName("changeName");
     TextField* tfName = (TextField*)layer->getChildByName("imgBackground")->getChildByName("tfName");
-    std::string name = tfName->getString();
+    std::string name(tfName->getString());
     if(name.length() == 0){
         showInstanceMessage(LM->getText("input name"));
         return;

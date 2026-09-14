@@ -905,7 +905,7 @@ public:
     void movingSchedule(float dt);
     cocos2d::Label* lblChar=nullptr;
     void initLabel(std::string str, int fontSize, cocos2d::Point pos);
-    cocos2d::Point lblPos = cocos2d::Point::ZERO;
+    cocos2d::Point lblPos = cocos2d::Point::zero;
     static Alphabet* create(int unit, const char* sptName);
 };
 #endif /* defined(__LegendDaryTheTower__Enemies__) */

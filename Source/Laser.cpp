@@ -104,7 +104,7 @@ void Laser::updateLaser(float dt){
     int y = this->getPositionY() - mapY;
     int worldX = this->getPositionX();
     int worldY = this->getPositionY();
-    if(getPosition() == Point::ZERO){
+    if(getPosition() == Point::zero){
         return;
     }
     float diff = 0;
@@ -361,7 +361,7 @@ void LightningLine::createLine(std::string line, std::string tip, Point startPos
     sptStartTip->setPosition(startPos);
     float angle = -atan2((endPos.y - startPos.y), (endPos.x - startPos.x))*180/3.14f;
     sptStartTip->setRotation(angle);
-    //sptStartTip->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+    //sptStartTip->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
     parent->addChild(sptStartTip);
     float delay = 0.01f;
     float fade = 0.6f;
@@ -374,7 +374,7 @@ void LightningLine::createLine(std::string line, std::string tip, Point startPos
     sptLine->setPosition(startPos);
     sptLine->setRotation(angle);
     sptLine->setScaleX(length/sptLine->getContentSize().width);
-    //sptLine->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+    //sptLine->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
     parent->addChild(sptLine);
     sptLine->runAction(Sequence::create(DelayTime::create(delay), EaseOut::create(FadeOut::create(fade), 2), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, sptStartTip)), NULL));
     
@@ -383,7 +383,7 @@ void LightningLine::createLine(std::string line, std::string tip, Point startPos
     sptEndTip->setAnchorPoint(Point(1, 0.5));
     sptEndTip->setRotation(180 + angle);
     sptEndTip->setPosition(endPos);
-    //sptEndTip->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+    //sptEndTip->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
     parent->addChild(sptEndTip);
     sptEndTip->runAction(Sequence::create(DelayTime::create(delay), EaseOut::create(FadeOut::create(fade), 2), CallFuncN::create(CC_CALLBACK_1(Sprite::removeFromParentAndCleanup, sptStartTip)), NULL));
 }
@@ -438,7 +438,7 @@ Lightning* Lightning::create(std::string lineName, std::string tipName, cocos2d:
         verticalGapMade = rand()%(verticalGap*2) - verticalGap;
         if (finalLength < nextLength) {
             nextLength = finalLength;
-            zagPos = Point::ZERO;
+            zagPos = Point::zero;
         }else{
             zagPos = Point(cos((angle+90)*3.14/180)*verticalGapMade, sin((angle+90)*3.14/180)*verticalGapMade);
         }
@@ -468,7 +468,7 @@ Lightning* Lightning::create(std::string lineName, std::string tipName, cocos2d:
     float dur = 0.5;
     for (int i = 0; i < 8; i++) {
         Sprite* sptSpark = Sprite::create("smallLight.png");
-        sptSpark->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+        sptSpark->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
         lightning->addChild(sptSpark);
         sptSpark->setPosition(nextPos);
         sptSpark->setScale(2);

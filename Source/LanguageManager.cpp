@@ -143,8 +143,8 @@ void LanguageManager::setLabelLocalizedEffect(Text* lbl){
         lbl->setFontSize(lbl->getFontSize()*0.7f);
     }
     lbl->setFontName(strFont);
-    Label* lblRenderer = (Label*)lbl->getVirtualRenderer();
+    Label* lblRenderer = (Label*)lbl->getRenderNode();
     if (strFont.at(strFont.length() - 4) != '.' && lblRenderer->getOutlineSize() > 0) {
-        lbl->enableShadow(Color4B(lblRenderer->getEffectColor()), Size(2, -2), 10);
+        lbl->enableShadow(lbl->getEffectColor(), Size(2, -2), 10);
     }
 }

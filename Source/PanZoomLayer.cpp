@@ -96,8 +96,8 @@ void PanZoomLayer::onTouchesMoved(const std::vector<Touch *> &touches, Event *ev
     
     if (_touches.size() == 1) {
         Touch *touch = (Touch *) _touches.at(0);
-        Vec2 curTouchPosition = Director::getInstance()->convertToGL(touch->getLocationInView());
-        Vec2 prevTouchPosition = Director::getInstance()->convertToGL(touch->getPreviousLocationInView());
+        Vec2 curTouchPosition = Director::getInstance()->screenToCanvas(touch->getLocationInView());
+        Vec2 prevTouchPosition = Director::getInstance()->screenToCanvas(touch->getPreviousLocationInView());
         Vec2 deltaPosition = curTouchPosition - prevTouchPosition;
         this->setPosition(this->getPosition() + deltaPosition);
         
@@ -122,10 +122,10 @@ void PanZoomLayer::onTouchesMoved(const std::vector<Touch *> &touches, Event *ev
         log("touch2 %f", touch2->getLocation().x);
         
         // Get current and previous positions of the touches
-        Vec2 curPosTouch1 = Director::getInstance()->convertToGL(touch1->getLocationInView());
-        Vec2 curPosTouch2 = Director::getInstance()->convertToGL(touch2->getLocationInView());
-        Vec2 prevPosTouch1 = Director::getInstance()->convertToGL(touch1->getPreviousLocationInView());
-        Vec2 prevPosTouch2 = Director::getInstance()->convertToGL(touch2->getPreviousLocationInView());
+        Vec2 curPosTouch1 = Director::getInstance()->screenToCanvas(touch1->getLocationInView());
+        Vec2 curPosTouch2 = Director::getInstance()->screenToCanvas(touch2->getLocationInView());
+        Vec2 prevPosTouch1 = Director::getInstance()->screenToCanvas(touch1->getPreviousLocationInView());
+        Vec2 prevPosTouch2 = Director::getInstance()->screenToCanvas(touch2->getPreviousLocationInView());
         
         // Calculate current and previous positions of the layer relative the anchor point
         Vec2 curPosLayer = curPosTouch1.getMidpoint(curPosTouch2);
@@ -169,7 +169,7 @@ void PanZoomLayer::onTouchesEnded(const std::vector<Touch *> &touches, Event *ev
 void PanZoomLayer::setPosition(Vec2 position) {
     Node::setPosition(position);
     
-    if (_panBoundsRect.equals(Rect::ZERO) == false) {
+    if (_panBoundsRect.equals(Rect::zero) == false) {
         Rect boundBox;
         boundBox.origin = this->getPosition() / this->getScale();
         boundBox.size = this->getContentSize() / this->getScale();

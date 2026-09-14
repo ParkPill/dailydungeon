@@ -48,6 +48,7 @@ using namespace cocos2d;
 //using namespace cocos2d::ui;
 class DualWorld : public cocos2d::Layer
 {
+    std::string tilesetName;
 protected:
     float stickTimeLeft=0;
     void updateIndicators();
@@ -443,7 +444,7 @@ public:
     void gameOver();
     void shakeScreen(int count);
     void shakeScreenOnce();
-    cocos2d::Point extraCameraPos=cocos2d::Point::ZERO;
+    cocos2d::Point extraCameraPos=cocos2d::Point::zero;
     void shakeScreenFirst();
     void shakeScreenSecond();
     void shakeScreenEnd();

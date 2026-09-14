@@ -47,7 +47,7 @@ void Trap::startAnimation()
 void Trap::stopAnimation()
 {
     _isHurting = false;
-    this->setDisplayFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(_stopFrameName));
+    this->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(_stopFrameName));
     this->stopAllActions();
 }
 void Trap::running(float dt)

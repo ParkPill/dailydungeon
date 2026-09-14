@@ -30,11 +30,11 @@ bool DualHudLayer::init()
     }
     
     weaponIndex = 0;
-    size = Director::getInstance()->getWinSize();
+    size = Director::getInstance()->getVisibleSize();
     isRecording = false;
     listener = EventListenerKeyboard::create();
-    listener->onKeyPressed = CC_CALLBACK_2(DualHudLayer::onKeyPressed, this);
-    listener->onKeyReleased = CC_CALLBACK_2(DualHudLayer::onKeyReleased, this);
+    listener->onKeyPressed = [this](KeyboardEvent* event) { onKeyPressed(event->getKeyCode(), event); };
+    listener->onKeyReleased = [this](KeyboardEvent* event) { onKeyReleased(event->getKeyCode(), event); };
     
     SceneChanger* changer = SceneChanger::create();
     std::string strTitle = GM->isLocalGamePlay?"avatar challenge":"network battle";
@@ -250,9 +250,9 @@ bool DualHudLayer::init()
             int ranking = GameManager::getInstance()->ranking;
             std::string nameStr;
             if (ranking < 0) {
-                nameStr = __String::createWithFormat("100+. %s", UserDefault::getInstance()->getStringForKey(KEY_NAME, "Newbie").c_str())->getCString();
+                nameStr = __String::createWithFormat("100+. %s", UDGetStr(KEY_NAME, "Newbie").c_str())->getCString();
             }else{
-                nameStr = __String::createWithFormat("%d. %s", ranking + 1, UserDefault::getInstance()->getStringForKey(KEY_NAME, "Newbie").c_str())->getCString();
+                nameStr = __String::createWithFormat("%d. %s", ranking + 1, UDGetStr(KEY_NAME, "Newbie").c_str())->getCString();
             }
             lblName->setString(nameStr);
             GameManager::getInstance()->makeLabelEllipsis(lblName, nameWidth);
@@ -540,19 +540,19 @@ void DualHudLayer::registerControllerListener()
         _listener = EventListenerController::create();
         
         //bind onConneected event call function
-        _listener->onConnected = CC_CALLBACK_2(DualHudLayer::onConnectController,this);
+        _listener->onConnected = [this](ControllerEvent* event) { onConnectController(event->getController(), event); };
         
         //bind disconnect event call function
-        _listener->onDisconnected = CC_CALLBACK_2(DualHudLayer::onDisconnectedController,this);
+        _listener->onDisconnected = [this](ControllerEvent* event) { onDisconnectedController(event->getController(), event); };
         
         //bind onKeyDown event call function
-        _listener->onKeyDown = CC_CALLBACK_3(DualHudLayer::onKeyDown, this);
+        _listener->onKeyDown = [this](ControllerEvent* event) { onKeyDown(event->getController(), event->getKeyCode(), event); };
         
         //bind onKeyUp event call function
-        _listener->onKeyUp = CC_CALLBACK_3(DualHudLayer::onKeyUp, this);
+        _listener->onKeyUp = [this](ControllerEvent* event) { onKeyUp(event->getController(), event->getKeyCode(), event); };
         
         //bind onAxis event call function, onAxis will be called when analog stick is changed
-        _listener->onAxisEvent = CC_CALLBACK_3(DualHudLayer::onAxisEvent, this);
+        _listener->onAxisEvent = [this](ControllerEvent* event) { onAxisEvent(event->getController(), event->getKeyCode(), event); };
         
         //Activate the listener into the event dispatcher
         Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(_listener, this);
@@ -573,7 +573,7 @@ void DualHudLayer::onKeyDown(cocos2d::Controller *controller, int keyCode, cocos
 void DualHudLayer::onKeyUp(cocos2d::Controller *controller, int keyCode, cocos2d::Event *event)
 {
     //You can get the controller by tag, deviceId or devicename if there are multiple controllers
-    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().c_str());
+    CCLOG("tag:%d DeviceId:%d DeviceName:%s", controller->getTag(), controller->getDeviceId(), controller->getDeviceName().data());
     CCLOG("KeyUp:%d", keyCode);
 }
 
@@ -793,7 +793,7 @@ void DualHudLayer::stageTitleLineUpdate(float dt){
     float bulletWidth = 10;
     float gap = 4;
     if (currentLineLength > 10) {
-        dnTitleLine->drawSolidRect(Point::ZERO, Point(currentLineLength, 4), Color4F(235.0f/255, 235.0f/255, 235.0f/255, sptWhiteGun->getOpacity()/255.0f));
+        dnTitleLine->drawSolidRect(Point::zero, Point(currentLineLength, 4), Color4F(235.0f/255, 235.0f/255, 235.0f/255, sptWhiteGun->getOpacity()/255.0f));
     }
     if (currentLineLength < lineLength) {
         currentLineLength += lineLength*dt/0.5f;
@@ -2021,7 +2021,7 @@ void DualHudLayer::addListener(){
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID )
         
         Point location = touch->getLocationInView();
-        location = Director::getInstance()->convertToGL(location);
+        location = Director::getInstance()->screenToCanvas(location);
         
         if (!GameManager::getInstance()->getCurrentDualLayer()->isTouchStarted) {
             return;
@@ -2065,7 +2065,7 @@ void DualHudLayer::showDialog(const char* message, const char* btn1, const char*
     MyMessageBox::getInstance()->showDialog(this, call, message, btn1, btn2);
     GameManager::getInstance()->getHudLayer()->enableJoystick(false);
 
-    this->setTouchEnabled(false);
+    Director::getInstance()->getEventDispatcher()->pauseEventListenersForTarget(this);
     
     ((DualWorld*)GameManager::getInstance()->getCurrentDualLayer())->pauseLayer();
 }
@@ -2073,7 +2073,7 @@ void DualHudLayer::showDialog(const char* message, const char* btn1, const char*
 void DualHudLayer::messageBoxClosed(Node* node)
 {
     ((DualWorld*)GameManager::getInstance()->getCurrentDualLayer())->resumeLayer();
-	this->setTouchEnabled(true);
+	Director::getInstance()->getEventDispatcher()->resumeEventListenersForTarget(this);
     //	_dialogBox->setVisible(false);
 	
     GameManager::getInstance()->getHudLayer()->enableJoystick(true);

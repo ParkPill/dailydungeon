@@ -1624,7 +1624,7 @@ void EnemyWithGun::movingSchedule(float dt){
             
         }
         
-        Point msPos = Point::ZERO;
+        Point msPos = Point::zero;
         setCurrentMoveType(moveTypeAfterFindHero);
         float msStartPoint = 0;
         if (sptGun) {
@@ -2370,7 +2370,7 @@ void Bazooka::movingSchedule(float dt){
     
     // gun aiming
     double angle = -GameManager::getInstance()->getAngle(this->getPosition(), this->target->getPosition() + Point(0, TILE_SIZE/2)) + 180;
-    Point msPos = Point::ZERO;
+    Point msPos = Point::zero;
     
     float msStartPoint = 0;
     if (sptGun->isVisible()) {
@@ -2655,7 +2655,7 @@ void Machinegun::movingSchedule(float dt){
     
     // gun aiming
     double angle = -GameManager::getInstance()->getAngle(this->getPosition(), this->target->getPosition() + Point(0, TILE_SIZE/2)) + 180;
-    Point msPos = Point::ZERO;
+    Point msPos = Point::zero;
     
     float msStartPoint = 0;
     if (sptGun->isVisible()) {
@@ -3007,7 +3007,7 @@ void Giant::movingSchedule(float dt){
     
     // gun aiming
     double angle = -GameManager::getInstance()->getAngle(this->getPosition(), this->target->getPosition() + Point(0, TILE_SIZE/2)) + 180;
-    Point msPos = Point::ZERO;
+    Point msPos = Point::zero;
     
     float msStartPoint = 0;
     if (sptGun->isVisible()) {

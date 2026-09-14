@@ -18,6 +18,8 @@
 #include "network/HttpResponse.h"
 #include "network/HttpClient.h"
 
+#define httpresponse_selector(method) &method
+
 //#define DATA_KEY_LEVEL 
 
 #define SET_DOCUMENT_AND_CHECK_ERROR rapidjson::Document document = getDocument(sender, data); if(document.IsNull()){ this->isServerFailed = true; return; } if (document.HasMember("error")) { log("server data error: %s", document["error"].GetString()); isFailedToGetNetworkData = true;}
@@ -116,7 +118,8 @@ public:
     bool isFailedToGetNetworkData = false;
     std::string strOtherUserName = "";
     
-    void sendPost(std::string method, std::string requestData, cocos2d::network::SEL_HttpResponse pSelector);
+    using SEL_HttpResponse = void (ServerManager::*)(cocos2d::Node*, void*);
+    void sendPost(std::string method, std::string requestData, SEL_HttpResponse pSelector);
     
     double getTimeFromStr(std::string strTime);
     int getIntIfUndefineZero(std::string str);

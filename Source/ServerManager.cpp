@@ -67,7 +67,7 @@ void ServerManager::checkServer(){
     HttpRequest* request = new HttpRequest();
     request->setUrl(strmake("%s/checkVersion", serverUrl.c_str()));
     request->setRequestType(HttpRequest::Type::GET);
-    request->setResponseCallback(this, httpresponse_selector(ServerManager::onCheckServerCompleted));
+    request->setCompleteCallback([this](HttpClient*, HttpResponse* response) { this->onCheckServerCompleted(nullptr, response); });
     HttpClient::getInstance()->send(request);
     request->release();
 }
@@ -75,13 +75,12 @@ void ServerManager::onCheckServerCompleted(Node *sender, void *data)
 {
     log("time complete request http");
     HttpResponse *response = (HttpResponse*)data;
-    std::string str = std::string(response->getResponseHeader()->begin(), response->getResponseHeader()->end());
-    int size = (int)response->getResponseHeader()->size();
+
     std::string responseData = std::string(response->getResponseData()->begin(), response->getResponseData()->end());
     rapidjson::Document document = getDocument(sender, data);
     if (!response->isSucceed())
     {
-        log("!isSucceed %s", response->getErrorBuffer());
+        log("!isSucceed %s", response->getStatusText().data());
         return;
     }
     if(document.IsNull()){
@@ -133,7 +132,7 @@ void ServerManager::getHttpTime()
 //    request->setUrl("http://1-dot-fsjavatime.appspot.com/fsfreetime");
     request->setUrl(strmake("%s/time", serverUrl.c_str()));
     request->setRequestType(HttpRequest::Type::GET);
-    request->setResponseCallback(this, httpresponse_selector(ServerManager::onHttpRequestCompleted));
+    request->setCompleteCallback([this](HttpClient*, HttpResponse* response) { this->onHttpRequestCompleted(nullptr, response); });
     request->setTag("Http time from fsfreetime");
     HttpClient::getInstance()->send(request);
     request->release();
@@ -193,13 +192,12 @@ void ServerManager::onHttpRequestCompleted(Node *sender, void *data)
 {
     log("time complete request http");
     HttpResponse *response = (HttpResponse*)data;
-    std::string str = std::string(response->getResponseHeader()->begin(), response->getResponseHeader()->end());
-    int size = (int)response->getResponseHeader()->size();
+
     std::string responseData = std::string(response->getResponseData()->begin(), response->getResponseData()->end());
     
     if (!response->isSucceed())
     {
-        log("!isSucceed %s", response->getErrorBuffer());
+        log("!isSucceed %s", response->getStatusText().data());
         if(HUD != nullptr){
 //            HUD->isTimeGetFailed = true;
         }
@@ -331,19 +329,19 @@ int ServerManager::getYesterdayYear(){
 rapidjson::Document ServerManager::getDocument(cocos2d::Node *sender, void *data){
     log("sm request complete");
     HttpResponse *response = (HttpResponse*)data;
-    std::string str = std::string(response->getResponseHeader()->begin(), response->getResponseHeader()->end());
+
 //    int size = (int)response->getResponseHeader()->size();
     std::string resposeData = std::string(response->getResponseData()->begin(), response->getResponseData()->end());
     if (!response->isSucceed())
     {
-        log("sm %s", response->getErrorBuffer());
+        log("sm %s", response->getStatusText().data());
         
         return nullptr;
     }
     
     log("sm resposeData: %s", resposeData.c_str());
     
-    std::vector<char> *buffer = response->getResponseData();
+    auto *buffer = response->getResponseData();
     if (buffer->size() > 0) {
         std::string res;
         res.insert(res.begin(), buffer->begin(), buffer->end());
@@ -370,7 +368,7 @@ void ServerManager::sendPost(std::string method, std::string requestData, SEL_Ht
     headers.push_back("Content-Type:text/plain;charset=utf-8");
     
     request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
-    request->setResponseCallback(this, pSelector);
+    request->setCompleteCallback([this, pSelector](HttpClient*, HttpResponse* response) { (this->*pSelector)(nullptr, response); });
     
     // write the post data
     request->setRequestData(requestData.c_str(), strlen(requestData.c_str()));
@@ -1033,7 +1031,7 @@ void ServerManager::verifyReceipt(std::string strSignedData, std::string strSign
     std::vector<std::string> headers;
     headers.push_back("Content-Type:text/plain;charset=utf-8");
     request->setRequestType(cocos2d::network::HttpRequest::Type::POST);
-    request->setResponseCallback(this, httpresponse_selector(ServerManager::onVerifyReceiptComplete));
+    request->setCompleteCallback([this](HttpClient*, HttpResponse* response) { this->onVerifyReceiptComplete(nullptr, response); });
     
     // write the post data
     std::string requestData = strmake("id=%s&signedData=%s&signature=%s&platform=%s", requestedID.c_str(), strSignedData.c_str(), strSignature.c_str(), strPlatform.c_str());

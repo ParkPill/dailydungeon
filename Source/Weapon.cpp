@@ -227,8 +227,8 @@ void Weapon::startShooting(){
                 GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG, 0.5f);
                 laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "", DUAL_WORLD->theMap);
                 laser->setScaleY(0.4);
-                laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-                laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+                laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+                laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
                 //            laser->sptHit->addChild(getLight());
                 //            laser->sptBeam->addChild(getLight());
                 laser->sptHit->setScale(2, 1.6);
@@ -250,8 +250,8 @@ void Weapon::startShooting(){
 //            GameManager::getInstance()->playSoundEffect(SOUND_LASER_WOONG);
 //            laser = Laser::create("bigLaserLine.png", "bigLaserCircle.png", "");
 //            laser->setScaleY(0.4);
-//            laser->sptBeam->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
-//            laser->sptHit->setBlendFunc({GL_SRC_ALPHA, GL_ONE});
+//            laser->sptBeam->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
+//            laser->sptHit->setBlendFunc({ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE});
 //            laser->sptHit->addChild(getLight());
 //            laser->sptBeam->addChild(getLight());
 //            laser->sptHit->setScale(2, 1.6);

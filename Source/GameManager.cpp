@@ -597,7 +597,7 @@ void GameManager::buttonUp(int buttonType)
 }
 void GameManager::shakeIt(Node* node){
     //node->stopAllActionsByTag(ACTION_TAG_ANIMATION);
-    //node->setPosition(Point::ZERO);
+    //node->setPosition(Point::zero);
     Sequence* seq = Sequence::create(MoveBy::create(0.05, Point(0.5,0.5)), MoveBy::create(0.05, Point(-1, -0.5)), MoveBy::create(0.03, Point(0.5, 0)), NULL);
     
     seq->setTag(ACTION_TAG_ANIMATION);
@@ -854,7 +854,7 @@ void GameManager::setButtonSize(float siz)
 }
 float GameManager::getButtonSize()
 {
-    if (Director::getInstance()->getWinSize().width < 960) {
+    if (Director::getInstance()->getVisibleSize().width < 960) {
         return UserDefault::getInstance()->getFloatForKey(KEY_BUTTON_SIZE, 0.4);
     }else{
         return UserDefault::getInstance()->getFloatForKey(KEY_BUTTON_SIZE, 0.9);
@@ -1156,7 +1156,7 @@ void GameManager::playSoundEffect(int sound, float gain, float pan){
 	}
 }
 void GameManager::makeLabelEllipsis(Label* lbl, float width){
-    std::string originalStr = lbl->getString();
+    std::string originalStr(lbl->getString());
     int index = originalStr.size();
     while(lbl->getContentSize().width > width){
         index--;
@@ -1164,7 +1164,7 @@ void GameManager::makeLabelEllipsis(Label* lbl, float width){
     }
 }
 Point GameManager::getGemCountPosition(){
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getVisibleSize();
     return Point(size.width/2 + 190, size.height - 30);
 }
 
@@ -1671,7 +1671,7 @@ void GameManager::animateFadeIn(Node* layer, Node* parent){
     layer->setScale(0.1f);
     layer->runAction(Sequence::create(ScaleTo::create(0.2, 1.1), ScaleTo::create(0.05, 0.95),ScaleTo::create(0.05, 1), NULL));
     
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getVisibleSize();
     Sprite* blackBack = Sprite::create("blackSquare.png");
     parent->addChild(blackBack, 999);
     blackBack->setTag(7899);
@@ -1787,8 +1787,7 @@ Sprite* GameManager::getGrayScaleImage(const char* src){
     if(img->hasAlpha())
         x=4;
     
-    unsigned char *data = new unsigned char[img->getDataLen()*x];
-    data = img->getData();
+    unsigned char *data = img->getData();
     // [0][0] => Left-Top Pixel !
     // But cocos2d Location Y-axis is Bottom(0) to Top(max)
     
@@ -1827,8 +1826,7 @@ Sprite* GameManager::getSpriteShapeSolidColorSprite(const char* src, Color3B col
     if(img->hasAlpha())
         x=4;
     
-    unsigned char *data = new unsigned char[img->getDataLen()*x];
-    data = img->getData();
+    unsigned char *data = img->getData();
     
     for(int i=0;i<img->getWidth();i++)
     {
@@ -2147,7 +2145,7 @@ RenderTexture* GameManager::createAdditiveBorder( Sprite* label, int size, Color
     
     ccBlendFunc originalBlend = label->getBlendFunc();
     
-    ccBlendFunc bf = {GL_SRC_ALPHA, GL_ONE}; // GL_SRC_ALPHA for glow effect
+    ccBlendFunc bf = {ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE}; // ax::rhi::BlendFactor::SRC_ALPHA for glow effect
     label->setBlendFunc(bf);
     
     Point bottomLeft = Point(
@@ -2205,7 +2203,7 @@ RenderTexture* GameManager::createAdditive( Sprite* label, Color3B color, GLubyt
     
     ccBlendFunc originalBlend = label->getBlendFunc();
     
-    ccBlendFunc bf = {GL_SRC_ALPHA, GL_ONE}; // GL_SRC_ALPHA for glow effect
+    ccBlendFunc bf = {ax::rhi::BlendFactor::SRC_ALPHA, ax::rhi::BlendFactor::ONE}; // ax::rhi::BlendFactor::SRC_ALPHA for glow effect
     label->setBlendFunc(bf);
     
     Point bottomLeft = Point(
@@ -2836,7 +2834,7 @@ Sprite* GameManager::getCard(int index){
     
     Sprite* card = Sprite::createWithSpriteFrameName("cardBackground.png");
     
-    Label* lblName = Label::createWithTTF(pet->name, FONT_DEFAULT, 20);
+    Label* lblName = Label::createWithTTF(pet->name, getFont(FONT_DEFAULT), 20);
     card->addChild(lblName);
     lblName->setPosition(Point(0,0));
     
@@ -3139,7 +3137,7 @@ void GameManager::showDisposableMessage(const char* msg, Node* parent){
     
     disposableLabel->setString(msg);
     float labelWidth = disposableLabel->getBoundingBox().size.width;
-    Size size = Director::getInstance()->getWinSize();
+    Size size = Director::getInstance()->getVisibleSize();
     if (labelWidth > size.width) {
         disposableLabel->setWidth(size.width/disposableLabel->getScale());
     }
@@ -3457,7 +3455,7 @@ Buddy* GameManager::getPet(int petNumber){
         wing->setPosition(Point(23, 10));
         wing->runAction(RepeatForever::create(Sequence::create(RotateTo::create(0.2, 40), RotateTo::create(0.5, 0), NULL)));
     }else if(petNumber == PET_WOOD_DRAGON){
-        Point center = Point(buddy->getContentSize().width/2, buddy->getContentSize().height/2);//Point::ZERO;
+        Point center = Point(buddy->getContentSize().width/2, buddy->getContentSize().height/2);//Point::zero;
         for(int i = 0;i<20;i++){
             ZOrderChangableSprite* leaf = new ZOrderChangableSprite();
             leaf->initWithSpriteFrameNameYo("woodDragonLeaf.png");
@@ -4071,7 +4069,7 @@ void GameManager::setItemCollectionFound(int itemIndex, int state){
     }
     
     std::string data = UDGetStr(key.c_str(), "");
-    int array[itemCount];
+    std::vector<int> array(itemCount);
     int newState = 0;
     bool somethingChanged = false;
     for (int i = 0; i < itemCount; i++) {
@@ -4242,7 +4240,7 @@ Sprite* GameManager::getItemSprite(int index){
         }else if(symbolIndex == 3){
             symbol->setColor(Color3B(50, 215, 255));
         }
-        symbol->setAnchorPoint(Vec2::ZERO);
+        symbol->setAnchorPoint(Vec2::zero);
         spt->addChild(symbol);
         return spt;
     }
@@ -4439,7 +4437,7 @@ int GameManager::getRuneBuff(int rank, int runeBuffType){
 }
 void GameManager::showPopup(Node* popup){
     popup->setScale(0.1f);
-    if(popup->getAnchorPoint() == Vec2::ZERO){
+    if(popup->getAnchorPoint() == Vec2::zero){
         popup->setAnchorPoint(Vec2(0.5, 0.5));
         popup->setPosition(Vec2(size.width/2, size.height/2));
     }
