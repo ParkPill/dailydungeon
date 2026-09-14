@@ -1,0 +1,17 @@
+# Generated build products and IDE state
+/build/
+/.vs/
+/.idea/
+/.vscode/
+
+# Per-user build/run state
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
+run.bat.txt
+
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example

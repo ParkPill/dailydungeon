@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="42" height="24" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+   <terrain name="empty" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain="1,1,1,0"/>
+  <tile id="5" terrain="1,1,0,0"/>
+  <tile id="6" terrain="1,1,0,1"/>
+  <tile id="12" terrain="0,0,0,1"/>
+  <tile id="13" terrain="0,0,1,1"/>
+  <tile id="14" terrain="0,0,1,0"/>
+  <tile id="36" terrain="1,0,1,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,1,0,1"/>
+  <tile id="44" terrain="0,1,0,1"/>
+  <tile id="45" terrain="1,1,1,1"/>
+  <tile id="46" terrain="1,0,1,0"/>
+  <tile id="68" terrain="1,0,1,1"/>
+  <tile id="69" terrain="0,0,1,1"/>
+  <tile id="70" terrain="0,1,1,1"/>
+  <tile id="76" terrain="0,1,0,0"/>
+  <tile id="77" terrain="1,1,0,0"/>
+  <tile id="78" terrain="1,0,0,0"/>
+ </tileset>
+ <layer name="back" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt0bENgDAUA9HfBiYBJgnZf5+YHS4IoSssXeXmtarasj1rYJNfTx/ZmV1w0789u7MBN/1L++iuu+6666677v91p3uVO92r3On+gqnuuuv+Tk+NJaVD
+  </data>
+ </layer>
+ <layer name="stage" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1zEKgDAUBNGt7NRbpJPc/3amCYhgN+APzMD2r92WpC2yfewouvPhvFK3Hp1kOtl0sulk08mmk00nm042nWyrOreiezv//rxfm84bEiwdsQ==
+  </data>
+ </layer>
+ <layer name="deco" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztziEBAAAIA7D3F2QmwxWCLcESgH/mOgAAAKUFCNIAjw==
+  </data>
+ </layer>
+ <layer name="unit" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAACAdwMPwAAB
+  </data>
+ </layer>
+ <layer name="fore" width="42" height="24">
+  <data encoding="base64" compression="zlib">
+   eJzt1jENAAAMw7Dyl8Z5JDb1sRHkTMKHaQcAABzzNwBdCwuVARs=
+  </data>
+ </layer>
+</map>

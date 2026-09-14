@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="8" height="20" tilewidth="16" tileheight="16" nextobjectid="4">
+ <tileset firstgid="1" name="dungeonTileSet" tilewidth="16" tileheight="16" tilecount="1024">
+  <image source="dungeonTileset.png" width="512" height="512"/>
+  <terraintypes>
+   <terrain name="blocks" tile="-1"/>
+   <terrain name="empty" tile="-1"/>
+  </terraintypes>
+  <tile id="4" terrain="1,1,1,0"/>
+  <tile id="5" terrain="1,1,0,0"/>
+  <tile id="6" terrain="1,1,0,1"/>
+  <tile id="12" terrain="0,0,0,1"/>
+  <tile id="13" terrain="0,0,1,1"/>
+  <tile id="14" terrain="0,0,1,0"/>
+  <tile id="36" terrain="1,0,1,0"/>
+  <tile id="37" terrain="0,0,0,0"/>
+  <tile id="38" terrain="0,1,0,1"/>
+  <tile id="44" terrain="0,1,0,1"/>
+  <tile id="45" terrain="1,1,1,1"/>
+  <tile id="46" terrain="1,0,1,0"/>
+  <tile id="68" terrain="1,0,1,1"/>
+  <tile id="69" terrain="0,0,1,1"/>
+  <tile id="70" terrain="0,1,1,1"/>
+  <tile id="76" terrain="0,1,0,0"/>
+  <tile id="77" terrain="1,1,0,0"/>
+  <tile id="78" terrain="1,0,0,0"/>
+ </tileset>
+ <layer name="back" width="8" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzTYmBg0MKDOSH0AnxqsOAFWpj6FiBhsJgXbn1EY08sYt5QcXqYrwkV08bBhqnzxsGGmcmFxX3a+MMWbA42eU7i4gPDPCzhhS9NYMXIficiPhgAO4AlPA==
+  </data>
+ </layer>
+ <layer name="stage" width="8" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxTY2BgUCOAeYGYDw2rIsnrMmACbPJMjPjlCelHNoNc/ZTIU8P9lMrT0v/k+o8NByaUrkAYAD+qDXY=
+  </data>
+ </layer>
+ <layer name="deco" width="8" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAu6KWyeaQAowG0mxpgqLufHAAAu88A8g==
+  </data>
+ </layer>
+ <layer name="unit" width="8" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKA+6KOBmaNgeAIANvcAjw==
+  </data>
+ </layer>
+ <layer name="fore" width="8" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYKAO6KWSOaNgZAEAO2cAjg==
+  </data>
+ </layer>
+</map>
